@@ -450,7 +450,7 @@ public class Calc
 				{a[0][1],a[1][1],a[2][1]},
 				{a[0][2],a[1][2],a[2][2]}};
 	}
-	/**Clamp the number into the bounds*/
+	/**Clamp the number into the bounds. Equivalent to: Math.max(Math.min(number, maximum), minimum)*/
 	public static double clamp(double number, double minimum, double maximum)
 	{
 		if (number<minimum)
@@ -459,7 +459,7 @@ public class Calc
 			return maximum;
 		return number;
 	}
-	/**Clamp the number into the bounds*/
+	/**Clamp the number into the bounds. Equivalent to: Math.max(Math.min(number, maximum), minimum)*/
 	public static float clamp(float number, float minimum, float maximum)
 	{
 		if (number<minimum)
@@ -468,8 +468,17 @@ public class Calc
 			return maximum;
 		return number;
 	}
+	/**Clamp the number into the bounds. Equivalent to: Math.max(Math.min(number, maximum), minimum)*/
+	public static int clamp(int number, int minimum, int maximum)
+	{
+		if (number<minimum)
+			return minimum;
+		if (number>maximum)
+			return maximum;
+		return number;
+	}
 
-	/**Clamp the number into the bounds.
+	/**Clamp the number into the bounds. Equivalent to: Math.max(Math.min(number, maximum), minimum)
 	 * @param clamped A byte array where we will increment a value if the number was clamped. It is left unaltered otherwise.
 	 * @param index The index to use in the byte array.*/
 	public static double clamp(double number, double minimum, double maximum, byte[] clamps, byte index)

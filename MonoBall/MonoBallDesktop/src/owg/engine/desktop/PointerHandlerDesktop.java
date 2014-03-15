@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import owg.engine.input.PointerHandler;
+import owg.engine.util.Calc;
 
 public class PointerHandlerDesktop extends PointerHandler implements MouseListener, MouseMotionListener, FocusListener {
 	/**The number of currently depressed mouse buttons*/
@@ -17,6 +18,7 @@ public class PointerHandlerDesktop extends PointerHandler implements MouseListen
 	
 	/**The last recorded position of the pointer in the OpenGL canvas(in pixels, from top-left)*/
 	private int lastPointerX,lastPointerY;
+	private Component canvas;
 
 	public PointerHandlerDesktop(AWTFocusHandler focusHandler, Component canvas) {
 		super();
@@ -30,6 +32,7 @@ public class PointerHandlerDesktop extends PointerHandler implements MouseListen
 		canvas.addMouseListener(this);
 		
 		focusHandler.addFocusListener(this);
+		this.canvas = canvas;
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -64,8 +67,8 @@ public class PointerHandlerDesktop extends PointerHandler implements MouseListen
 		mouseMotion(e);
 	}
 	private void mouseMotion(MouseEvent e) {
-		lastPointerX = e.getX();
-		lastPointerY = e.getY();
+		lastPointerX = Calc.clamp(e.getX(), 0, canvas.getWidth());
+		lastPointerY = Calc.clamp(e.getY(), 0, canvas.getHeight());
 	}
 	@Override
 	public void resetPressReleaseState() {
