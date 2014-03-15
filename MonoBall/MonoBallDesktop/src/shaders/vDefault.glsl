@@ -1,3 +1,4 @@
+#version 150
 // object space to camera space transformation
 uniform mat4 modelview_matrix;
  
@@ -7,10 +8,8 @@ uniform mat4 projection_matrix;
 // texture space to camera space transformation
 uniform mat4 texture_matrix;
 
-
 // global color to multiply with
 uniform vec4 global_color;
-
 uniform int color_count;
 uniform int normal_count;
 uniform int texcoord_count;

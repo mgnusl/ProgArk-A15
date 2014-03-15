@@ -13,8 +13,10 @@ import owg.engine.GameState;
  * To change this template use File | Settings | File Templates.
  */
 public class MainFrame extends Frame implements EntryPoint{
-    public static void main(String[] args) {
-        Frame f = new MainFrame();
+	private static final long serialVersionUID = 4173317818578875569L;
+
+	public static void main(String[] args) {
+        new MainFrame();
     }
 
 

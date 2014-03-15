@@ -4,7 +4,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
-import javax.media.opengl.GL;
 import javax.media.opengl.GL3;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
@@ -61,11 +60,11 @@ public class SceneDesktop extends Scene implements GLEventListener {
 		
     	AWTFocusHandler f = new AWTFocusHandler();
     	
-		GL gl = drawable.getGL();
-	//	if(gl.isGL3() || gl.isGL4bc())
+		//GL gl = drawable.getGL();
+    	//if(gl.isGL3() || gl.isGL4bc())
 			glUtil = new GL3Util((GL3)drawable.getGL(), assets);
-	//	else
-	//		throw new RuntimeException("No GLUtil implementation for: "+gl+"...");
+		//else
+		//	throw new RuntimeException("No GLUtil implementation for: "+gl+"...");
 		
 		animator = new AnimatorDesktop(Engine.getDefaultFPS(), drawable);
 		SpriteLib sprites = new SpriteLib(glUtil, assets);

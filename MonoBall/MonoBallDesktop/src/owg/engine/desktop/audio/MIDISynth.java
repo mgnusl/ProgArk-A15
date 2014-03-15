@@ -12,7 +12,6 @@ import javax.sound.sampled.SourceDataLine;
 
 import com.sun.media.sound.SF2SoundbankReader;
 import com.sun.media.sound.SoftSynthesizer;
-import com.sun.org.apache.bcel.internal.util.ClassLoader;
 
 public class MIDISynth {
 	/**The software gervill midi synth*/
