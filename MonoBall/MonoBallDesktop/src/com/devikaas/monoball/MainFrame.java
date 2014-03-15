@@ -1,6 +1,9 @@
 package com.devikaas.monoball;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 import owg.engine.Engine;
 import owg.engine.EntryPoint;
 import owg.engine.GameState;
@@ -23,6 +26,12 @@ public class MainFrame extends Frame implements EntryPoint{
     public MainFrame() {
         this.setTitle("MonoBall Desktop");
         Engine.initializeEngine(Engine.TargetPlatform.Desktop, this);
+        this.addWindowListener(new WindowAdapter() {
+        	@Override
+        	public void windowClosing(WindowEvent e) {
+        		System.exit(0);
+        	}
+		});
         this.pack();
         this.setVisible(true);
 

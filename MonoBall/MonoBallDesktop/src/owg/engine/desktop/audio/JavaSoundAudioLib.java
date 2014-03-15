@@ -101,8 +101,17 @@ public class JavaSoundAudioLib extends AudioLib
 		//Read file
 		data = new byte[fileSize];
 		buf = ByteBuffer.wrap(data).order(ByteOrder.LITTLE_ENDIAN);
-		read = file.read(data);
-		if(read != fileSize) 
+		
+		int currentReadPos = 0;
+		for(int i = 0; i<fileSize-read; i++) {
+			int bytesRead = file.read(data, currentReadPos, data.length-currentReadPos);
+			currentReadPos += bytesRead;
+			read += bytesRead;
+			if(read >= fileSize) {
+				break;
+			}
+		}
+		if(currentReadPos != fileSize) 
 			throw new IOException("Unexpected end of file: "+file+"... Read "+read+" bytes, expected "+fileSize);
 		file.close();
 
