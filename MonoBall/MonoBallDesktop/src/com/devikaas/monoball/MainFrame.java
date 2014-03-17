@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import com.devikaas.monoball.states.MenuGameState;
 import owg.engine.Engine;
 import owg.engine.EntryPoint;
 import owg.engine.GameState;
