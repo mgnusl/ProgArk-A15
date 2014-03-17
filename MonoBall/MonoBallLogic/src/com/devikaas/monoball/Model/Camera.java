@@ -25,7 +25,7 @@ public class Camera {
     private Camera(){
 		//TODO: Set proper values
         position = new V3F(0,0,0);
-        size = new V3F(720,1280,0);
+        size = new V3F(18,32,0);
         speed = 0;
     }
 
@@ -37,6 +37,10 @@ public class Camera {
 		 * NOTE: Might me implemented incorrectly
 		 */
 		position.y(position.y() + speed);
+    }
+
+    public void render() {
+
     }
 
 	public float bottom(){

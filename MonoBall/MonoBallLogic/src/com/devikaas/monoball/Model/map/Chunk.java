@@ -1,6 +1,5 @@
-package com.devikaas.monoball.model.world;
+package com.devikaas.monoball.model.map;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,5 +25,9 @@ public class Chunk {
 
     public void setPrev(Chunk c) {
         prev = c;
+    }
+
+    public List<Row> getRows() {
+        return rows;
     }
 }

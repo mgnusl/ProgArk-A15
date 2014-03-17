@@ -1,6 +1,7 @@
-package com.devikaas.monoball.model.world;
+package com.devikaas.monoball.model.map;
 
-import owg.engine.graphics.Sprite2D;
+import owg.engine.game.Entity;
+import owg.engine.game.SortedInstanceList;
 
 /**
  * Created with IntelliJ IDEA.
@@ -26,5 +27,8 @@ public class Block {
         this.x = x;
     }
 
+    public char getProperty() {
+        return property;
+    }
 
 }

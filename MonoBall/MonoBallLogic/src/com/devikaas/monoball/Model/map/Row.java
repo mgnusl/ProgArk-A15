@@ -1,4 +1,4 @@
-package com.devikaas.monoball.model.world;
+package com.devikaas.monoball.model.map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -8,7 +8,7 @@ package com.devikaas.monoball.model.world;
  * To change this template use File | Settings | File Templates.
  */
 public class Row {
-    public static final int ROW_WIDTH = 16;
+    public static final int ROW_WIDTH = 18;
 
     private Block[] blocks;
     private int y;

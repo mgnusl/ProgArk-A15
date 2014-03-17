@@ -11,26 +11,10 @@ import owg.engine.util.V3F;
  * Time: 11:50
  * To change this template use File | Settings | File Templates.
  */
-public class Ball {
-    private static Ball instance = null;
-    private V3F position;
+public class Ball extends Entity {
+    private static final int DEPTH = 1;
 
-    private Ball() {
-        position = new V3F();
-    }
-
-    public static Ball getInstance() {
-        if (instance == null)
-            instance = new Ball();
-
-        return instance;
-    }
-
-    public void setPosition(float x, float y) {
-        position.set(x, y, position.z());
-    }
-
-    public V3F getPosition() {
-        return position.clone();
+    public Ball(SortedInstanceList sil) {
+        super(sil, DEPTH);
     }
 }

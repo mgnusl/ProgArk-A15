@@ -1,6 +1,6 @@
-package com.devikaas.monoball.model.world;
+package com.devikaas.monoball.model.map;
 
-import owg.engine.AssetProducer;
+import owg.engine.Engine;
 import owg.engine.util.NamedInputStream;
 
 import java.io.IOException;
@@ -15,12 +15,8 @@ import java.io.IOException;
 public class AssetMapGenerator extends MapGenerator {
     private static final String PATH = "chunk";
 
-    private AssetProducer ap;
-
-    public AssetMapGenerator(int seed, AssetProducer ap) {
-        super(seed, ap.listAssets(PATH));
-        this.ap = ap;
-
+    public AssetMapGenerator(int seed) {
+        super(seed, Engine.assets().listAssets(PATH));
     }
 
     @Override
@@ -48,12 +44,11 @@ public class AssetMapGenerator extends MapGenerator {
         String s = chunks[rand.nextInt(chunks.length)];
 
         Chunk c = null;
-        try (NamedInputStream nis = ap.open(PATH + '/' + s)){
+        try (NamedInputStream nis = Engine.assets().open(PATH + '/' + s)){
             c = getChunkByStream(nis);
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            return c;
         }
+        return c;
     }
 }

@@ -2,7 +2,7 @@ package com.devikaas.monoball.states;
 
 import static owg.engine.Engine.*;
 
-import com.devikaas.monoball.model.world.AssetMapGenerator;
+import com.devikaas.monoball.model.map.AssetMapGenerator;
 import owg.engine.GameState;
 import owg.engine.graphics.ColorF;
 import owg.engine.graphics.MatrixStack;
@@ -23,6 +23,9 @@ public class MenuGameState implements GameState {
 	
 	//Position of mouse/touch pointer in view
 	private V3F viewSpacePointer;
+
+    private AssetMapGenerator amg;
+    private final static int SEED = 1;
 	
 	public MenuGameState() {
 		subImage = 0;
@@ -30,12 +33,10 @@ public class MenuGameState implements GameState {
 		viewSpacePointer = new V3F();
 		audioLib().get("clank").play(1, 0, 1);
 
-        // Get all the names of the map chunks
-        String[] chunkNames = assets().listAssets("chunk");
+        amg = new AssetMapGenerator(SEED);
+    }
 
-        AssetMapGenerator amg = new AssetMapGenerator(1, assets());
 
-	}
     @Override
     public void step() {
     	subImage = (subImage+10f/30)%4; //10 fps animation

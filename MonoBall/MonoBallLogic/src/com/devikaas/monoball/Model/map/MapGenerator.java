@@ -1,6 +1,5 @@
-package com.devikaas.monoball.model.world;
+package com.devikaas.monoball.model.map;
 
-import com.devikaas.monoball.model.Ball;
 import owg.engine.util.NamedInputStream;
 
 import java.io.BufferedReader;
@@ -38,6 +37,11 @@ abstract class MapGenerator {
     protected int maxY;
     protected int minY;
 
+    /*
+     * The limit before the map generator will try to create a new chunk
+     */
+    private final static int LIMIT = 10;
+
 
     private final static char BLANK = ' ';
 
@@ -65,19 +69,26 @@ abstract class MapGenerator {
         // Load the previous and next chunks
         Chunk next = loadNextChunk();
         Chunk prev = loadPrevChunk();
+
+        // Set the current length of the world
+        maxY = 2 + next.getRows().size();
+        minY = prev.getRows().size();
+    }
+
+    public int getMaxY() {
+        return maxY;
+    }
+
+    public int getMinY() {
+        return maxY;
     }
 
     protected abstract Chunk loadNextChunk();
     protected abstract Chunk loadPrevChunk();
 
-
-    public void step() {
-        // TODO: Check camera position and create new chunk if needed
-    }
-
     protected Chunk getChunkByStream(NamedInputStream nis) {
 
-        // Objects inside the cunk
+        // Objects inside the chunk
         List<Row> rows = new ArrayList<>();
         Block[] blocks;
 
@@ -101,7 +112,7 @@ abstract class MapGenerator {
 
                 // Insert blank spaces if EOL before ROW_WIDTH
                 if (min < Row.ROW_WIDTH) {
-                    for (int i = min; i < Row.ROW_WIDTH; i++) {
+                    for (int i = min; i < Row.ROW_WIDTH - min; i++) {
                         blocks[i] = new Block(i, BLANK);
                     }
                 }
@@ -114,5 +125,9 @@ abstract class MapGenerator {
         } finally {
             return new Chunk(rows);
         }
+    }
+
+    public Chunk getInitChunk() {
+        return initChunk;
     }
 }
