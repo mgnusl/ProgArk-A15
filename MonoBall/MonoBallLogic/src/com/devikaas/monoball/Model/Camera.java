@@ -1,4 +1,4 @@
-package com.devikaas.monoball.Model;
+package com.devikaas.monoball.model;
 
 import owg.engine.util.V3F;
 
@@ -32,7 +32,7 @@ public class Camera {
     public void step(){
 		/**
 		 * TODO: Increase speed
-		 * 
+		 *
 		 * Updates position according to camera speed.
 		 * NOTE: Might me implemented incorrectly
 		 */
