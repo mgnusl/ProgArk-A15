@@ -57,8 +57,8 @@ public class GL3Util extends GLDesktopUtil<GL3> {
 		gl.glTexParameterf(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MIN_FILTER, GL.GL_NEAREST);
 		gl.glTexParameterf(GL.GL_TEXTURE_2D, GL.GL_TEXTURE_MAG_FILTER, GL.GL_NEAREST);
 		
-		ByteBuffer pBuf = asBuffer(new byte[]{(byte)255});
-		gl.glTexImage2D(GL.GL_TEXTURE_2D, 0, GL.GL_LUMINANCE, 1, 1, 0, GL.GL_LUMINANCE, GL.GL_UNSIGNED_BYTE, pBuf);
+		ByteBuffer pBuf = asBuffer(new byte[]{(byte)255, (byte)255, (byte)255, (byte)255});
+		gl.glTexImage2D(GL.GL_TEXTURE_2D, 0, GL.GL_RGBA, 1, 1, 0, GL.GL_RGBA, GL.GL_UNSIGNED_BYTE, pBuf);
 		
 		currentColor = ColorF.WHITE.getMutableCopy();
 		try {

@@ -1,6 +1,8 @@
 package com.devikaas.monoball;
 
 import static owg.engine.Engine.*;
+
+
 import owg.engine.GameState;
 import owg.engine.graphics.ColorF;
 import owg.engine.graphics.MatrixStack;
@@ -39,6 +41,9 @@ public class MenuGameState implements GameState {
         
         viewSpacePointer.x(pointer().getLastPointerX()*(float)viewWidth/scene().getWidth());
         viewSpacePointer.y(pointer().getLastPointerY()*(float)viewHeight/scene().getHeight());
+        
+        if(pointer().isPointerButtonBeingPressed())
+        	scene().setState(new BallGameState());
     }
 
     @Override

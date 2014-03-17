@@ -4,9 +4,12 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import javax.media.opengl.DebugGL3;
 import javax.media.opengl.GL3;
 import javax.media.opengl.GLAutoDrawable;
+import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
+import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
 import owg.engine.Engine;
 import owg.engine.Scene;
@@ -33,14 +36,15 @@ public class SceneDesktop extends Scene implements GLEventListener {
     	{
     	super();
     	dimensionListeners = new ArrayList<Scene.DimensionListener>();
-    	canvas = new GLCanvas();
+    	GLCapabilities caps = new GLCapabilities(GLProfile.get(GLProfile.GL3));
+    	canvas = new GLCanvas(caps);
     	canvas.setPreferredSize(DEFAULT_SIZE);
         canvas.addGLEventListener(this);
         container.add(canvas);
     	}
 	@Override
 	public void display(GLAutoDrawable drawable) {
-		glUtil.setGL((GL3) drawable.getGL());
+		glUtil.setGL(new DebugGL3((GL3) drawable.getGL()));
 		glUtil.step();
 		if(state != null) {
 			state.step();
@@ -60,11 +64,8 @@ public class SceneDesktop extends Scene implements GLEventListener {
 		
     	AWTFocusHandler f = new AWTFocusHandler();
     	
-		//GL gl = drawable.getGL();
-    	//if(gl.isGL3() || gl.isGL4bc())
-			glUtil = new GL3Util((GL3)drawable.getGL(), assets);
-		//else
-		//	throw new RuntimeException("No GLUtil implementation for: "+gl+"...");
+    	System.out.println("GLSL version: "+drawable.getGL().glGetString(GL3.GL_SHADING_LANGUAGE_VERSION));
+		glUtil = new GL3Util(new DebugGL3((GL3)drawable.getGL()), assets);
 		
 		animator = new AnimatorDesktop(Engine.getDefaultFPS(), drawable);
 		SpriteLib sprites = new SpriteLib(glUtil, assets);

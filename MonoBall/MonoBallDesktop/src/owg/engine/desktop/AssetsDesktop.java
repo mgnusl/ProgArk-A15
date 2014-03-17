@@ -25,6 +25,9 @@ public class AssetsDesktop extends AssetProducer {
 				subDirName = subDirName+"/";
 
 			URL dirURL = ClassLoader.getSystemClassLoader().getResource(subDirName);
+			if(dirURL == null)
+				System.err.println("Warning: "+subDirName+" does not seem to exist on the class path.");
+			
 			if (dirURL != null && dirURL.getProtocol().equals("file")) {
 				/* A file path: easy enough */
 				return new File(dirURL.toURI()).list();
@@ -40,7 +43,10 @@ public class AssetsDesktop extends AssetProducer {
 			}
 			
 			// A JAR path (may fail) 
-			String jarPath = dirURL.getPath().substring(5, dirURL.getPath().indexOf("!")); //strip out only the JAR file
+			String jarPath = dirURL.getPath();
+			int exclIndex = jarPath.indexOf("!");
+			if(exclIndex >= 0)
+				jarPath = jarPath.substring(5, exclIndex); //strip out only the JAR file
 			if(!jarPath.endsWith(".jar")) {
 				//Find the directory we're _actually_ running from(double clicky jar on linux yields a nonsense working directory):
 				String jarDirectory = URLDecoder.decode(ClassLoader.getSystemResource("").getPath(),"UTF-8");
