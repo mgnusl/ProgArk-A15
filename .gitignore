@@ -32,3 +32,4 @@ proguard/
 log/
 target/
 gen-external-apklibs
+/out
