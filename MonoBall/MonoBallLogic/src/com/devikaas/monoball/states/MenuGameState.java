@@ -1,6 +1,8 @@
 package com.devikaas.monoball.states;
 
 import static owg.engine.Engine.*;
+
+import com.devikaas.monoball.model.world.AssetMapGenerator;
 import owg.engine.GameState;
 import owg.engine.graphics.ColorF;
 import owg.engine.graphics.MatrixStack;
@@ -31,6 +33,8 @@ public class MenuGameState implements GameState {
         // Get all the names of the map chunks
         String[] chunkNames = assets().listAssets("chunk");
 
+        AssetMapGenerator amg = new AssetMapGenerator(1, assets());
+
 	}
     @Override
     public void step() {
@@ -60,8 +64,6 @@ public class MenuGameState implements GameState {
         //Reset the model transformation matrix
         MatrixStack modelview = glUtil().modelviewMatrix();
         modelview.identity();
-
-
         
         //Render objects on the screen:
         glUtil().setColor(ColorF.WHITE);
