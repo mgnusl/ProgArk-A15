@@ -40,13 +40,17 @@ public class BallGameModel {
 	public MapModel getMap() {
 		return mapModel;
 	}
+
+    public void setX(float x) {
+        gravity.x(x);
+    }
+
+    public void reverse() {
+        gravity.reverse();
+    }
+
 	public void step() {
-		gravity.x(0);
-		if(Engine.keyboard().isDown(VirtualKey.VK_LEFT))//TODO controller
-			gravity.x(-1);
-		if(Engine.keyboard().isDown(VirtualKey.VK_RIGHT))
-			gravity.x(1);
-		
+
 		cameraModel.step();
 		mapModel.step();
 		ballModel.step();

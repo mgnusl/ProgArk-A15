@@ -3,6 +3,8 @@ package com.devikaas.monoball;
 import static owg.engine.Engine.*;
 
 
+import com.devikaas.monoball.ingame.controller.Controller;
+import com.devikaas.monoball.ingame.controller.SystemKeyController;
 import owg.engine.GameState;
 import owg.engine.graphics.ColorF;
 import owg.engine.graphics.MatrixStack;
@@ -23,12 +25,16 @@ public class MenuGameState implements GameState {
 	
 	//Position of mouse/touch pointer in view
 	private V3F viewSpacePointer;
+
+    private Controller sysController;
 	
 	public MenuGameState() {
 		subImage = 0;
 		font = new SpriteFontRenderer(sprites().get("font"), 1, 1);
 		viewSpacePointer = new V3F();
 		audioLib().get("clank").play(1, 0, 1);
+
+        sysController = new SystemKeyController();
 	}
     @Override
     public void step() {
@@ -44,6 +50,9 @@ public class MenuGameState implements GameState {
         
         if(pointer().isPointerButtonBeingPressed())
         	scene().setState(new BallGameState());
+
+        sysController.step();
+
     }
 
     @Override
