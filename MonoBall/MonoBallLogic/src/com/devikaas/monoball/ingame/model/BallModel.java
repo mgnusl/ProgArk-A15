@@ -2,6 +2,7 @@ package com.devikaas.monoball.ingame.model;
 
 import com.devikaas.monoball.ingame.model.map.Collidable;
 
+import com.devikaas.monoball.ingame.model.map.blocks.DeathBlock;
 import owg.engine.Engine;
 import owg.engine.util.Calc;
 import owg.engine.util.Compass;
@@ -94,7 +95,7 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 		}
 		
 		angleSp = speed.createCross(normal).z()/(radius);
-		
+
 		return true;
 	}
 
@@ -105,5 +106,11 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 		
 		angle += angleSp;
 	}
+
+	public void kill(){
+		// TODO: Kill player
+		// System.out.println("DEAD");
+	}
+
 
 }
