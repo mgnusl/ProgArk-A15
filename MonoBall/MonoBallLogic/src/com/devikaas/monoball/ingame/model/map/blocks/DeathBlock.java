@@ -19,26 +19,30 @@ public class DeathBlock extends BasicBlock{
 
 	@Override
 	public void evaluateSurface(Collidable subject) {
-		boolean collidedWithBall = false;
+		BallModel ball = null;
+
 		for(SolidLine l : lines){
-			if(l.evaluateLine(subject) && subject instanceof BallModel)
-				collidedWithBall=true;
+			if(l.evaluateLine(subject) && subject instanceof BallModel){
+				ball = (BallModel)subject;
+			}
 		}
 
-		if(collidedWithBall)
-			((BallModel)subject).kill();
+		if(ball != null)
+			ball.kill();
 	}
 
 	@Override
 	public void evaluateEndpoints(Collidable subject) {
-		boolean collidedWithBall = false;
+		BallModel ball = null;
+		
 		for(SolidLine l : lines){
-			if(l.evaluateEndpoints(subject) && subject instanceof BallModel)
-				collidedWithBall = true;
+			if(l.evaluateEndpoints(subject) && subject instanceof BallModel){
+				ball = (BallModel)subject;
+			}
 		}
 
-		if(collidedWithBall)
-			((BallModel)subject).kill();
-
+		if(ball != null)
+			ball.kill();
 	}
+
 }
