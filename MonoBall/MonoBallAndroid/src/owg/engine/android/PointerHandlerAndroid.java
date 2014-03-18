@@ -42,17 +42,20 @@ public class PointerHandlerAndroid extends PointerHandler implements OnTouchList
 	public synchronized void pollEvents() {
 		MotionEvent event;
 		while((event = inputQueue.poll()) != null) {
-			if(event.getAction() == MotionEvent.ACTION_DOWN) {
-				numPointerButtonsDown++;
-				numPointerButtonPresses++;
-			}
-			else if(event.getAction() == MotionEvent.ACTION_UP) {
-				numPointerButtonsDown--;
-				if(numPointerButtonsDown < 0)
-					numPointerButtonsDown = 0;
-				numPointerButtonReleases++;
-			}
-			if(event.getAction() != MotionEvent.ACTION_DOWN) {
+            if (event.getAction() != MotionEvent.ACTION_UP) {
+
+                if (numPointerButtonsDown == 0)
+                    numPointerButtonPresses = 1;
+                numPointerButtonsDown = 1;
+            } else {
+
+                if (numPointerButtonsDown == 1) {
+                    numPointerButtonReleases = 1;
+                }
+                numPointerButtonsDown = 0;
+            }
+
+            if(event.getAction() != MotionEvent.ACTION_DOWN) {
 				lastPointerX = event.getX();
 				lastPointerY = event.getY();
 			}
