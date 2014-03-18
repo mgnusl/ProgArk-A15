@@ -25,7 +25,7 @@ public class BallGameState implements GameState {
 
         // Add all controllers
         controllers.add(new TouchController(model));
-        // controllers.add(new KeyboardController(model));
+        controllers.add(new KeyboardController(model));
         controllers.add(new SystemKeyController());
 
 	}

@@ -14,7 +14,7 @@ public class BasicBlock implements Block, SpriteModel {
 	
 	private V3F topLeft;
 	private float width, height;
-	private SolidLine[] lines;
+	protected SolidLine[] lines;
 	public BasicBlock(Row row, float xOffset, float width) {
 		row.pushBlock(this);
 		
