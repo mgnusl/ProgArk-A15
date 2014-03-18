@@ -86,7 +86,7 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 			return false;
 		location.set(referencePosition).add(normal, radius);
 		speed.add(normal, normalForce);
-		speed.accelerate(-friction*referenceFriction);
+		speed.accelerate(-friction*referenceFriction*normalForce);
 		
 		if(normalForce > 4) {
 			float i = Calc.clamp(0.5f+normalForce/16f, 0f, 1f);
