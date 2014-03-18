@@ -89,8 +89,9 @@ public class SolidLine {
 	}
 	/**Check if there is a collision with the indicated object and dispatch a collision event if there is.<br/>
 	 * This method checks for collisions with the two endpoints, not the line segment itself.*/
-	public void evaluateEndpoints(Collidable subject) {
-		evaluateEndpoint(pos, subject);
-		evaluateEndpoint(pos.clone().add(scale), subject);
+	public boolean evaluateEndpoints(Collidable subject) {
+		boolean c1 = evaluateEndpoint(pos, subject);
+		boolean c2 = evaluateEndpoint(pos.clone().add(scale), subject);
+		return c1 || c2;
 	}
 }
