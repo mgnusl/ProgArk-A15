@@ -3,6 +3,8 @@ package com.devikaas.monoball.ingame.model.map;
 import com.devikaas.monoball.ingame.model.map.blocks.BasicBlock;
 
 public class BlockFactory {
+    public static final float BLOCK_WIDTH = 0;
+
 
     public static void createBlock(Row r, int offset, char type) {
         // TODO: Create different blocks

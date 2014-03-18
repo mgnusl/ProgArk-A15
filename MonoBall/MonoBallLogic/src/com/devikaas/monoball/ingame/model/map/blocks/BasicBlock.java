@@ -34,7 +34,7 @@ public class BasicBlock implements Block, SpriteModel {
 	
 	@Override
 	public String getSprite() {
-		return "wtfBlock";
+		return "brickBlock";
 	}
 
 	@Override

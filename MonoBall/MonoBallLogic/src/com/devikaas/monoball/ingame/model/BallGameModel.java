@@ -19,7 +19,7 @@ public class BallGameModel {
     private final int SEED = 7;
 	
 	public BallGameModel() {
-		cameraModel = new CameraModel(new V3F(0, -160, 0));
+		cameraModel = new CameraModel(this, new V3F(0, -160, 0));
 		mapModel = new MapModel(this, new AssetMapGenerator(SEED));
 		collisionHandler = new CollidableList(mapModel);
 		gravity = new V3F(0, 1, 0);
@@ -51,9 +51,10 @@ public class BallGameModel {
 
 	public void step() {
 
+        ballModel.step();
 		cameraModel.step();
 		mapModel.step();
-		ballModel.step();
+
 		collisionHandler.step();
 	}
 	public V3F getGravity() {
