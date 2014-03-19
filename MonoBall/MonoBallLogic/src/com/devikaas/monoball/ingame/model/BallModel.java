@@ -92,7 +92,7 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 
 		if(normalForce > 4) {
 			float i = Calc.clamp(0.5f+normalForce/16f, 0f, 1f);
-			Engine.audioLib().get("clank").play(0.5f+i/2, 0, 1.5f-i/2);
+			// Engine.audioLib().get("clank").play(0.5f+i/2, 0, 1.5f-i/2);
 		}
 		
 		angleSp = speed.createCross(normal).z()/(radius);

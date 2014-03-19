@@ -11,9 +11,9 @@ public class CameraModel implements Steppable {
 	private float viewWidth, viewHeight;
 	
 	private ColorFMutable clearColor;
-    private BallGameModel ballGameModel;
+    private final BallGameModel ballGameModel;
 
-    private static final float MARGIN = 30;
+    private static final float MARGIN = 200;
 	
 	public CameraModel(BallGameModel ballGameModel, V3F location) {
         this.ballGameModel = ballGameModel;
@@ -33,10 +33,19 @@ public class CameraModel implements Steppable {
         // Check location of ball
         float ballY = ballGameModel.getBall().getLocation().y();
 
-        float totalBall = ballY + MARGIN;
-        float totalCam = location.y()+viewHeight;
-        if (totalBall >= totalCam) {
-            location.add(0, totalBall - totalCam, 0);
+        if (ballGameModel.isReversed()) {
+            float totalBall = ballY - MARGIN;
+            float totalCam = location.y();
+            if (totalBall <= totalCam) {
+                location.add(0, totalBall - totalCam, 0);
+            }
+
+        } else {
+            float totalBall = ballY + MARGIN;
+            float totalCam = location.y()+viewHeight;
+            if (totalBall >= totalCam) {
+                location.add(0, totalBall - totalCam, 0);
+            }
         }
 
 	}	
@@ -60,4 +69,6 @@ public class CameraModel implements Steppable {
 	public void setVerticalSpeed(float ySpeed) {
 		this.speed = ySpeed;
 	}
+
+    public void reverse() {speed *= -1;}
 }

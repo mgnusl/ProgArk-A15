@@ -16,7 +16,8 @@ public class TouchController implements Controller {
         if(Engine.pointer().isPointerButtonDown()) {
             int width = Engine.scene().getWidth();
 
-            mBallGameModel.setX(-1+2*Engine.pointer().getLastPointerX()/width);
+            float normalSpeed = (-1+2*Engine.pointer().getLastPointerX()/width);
+            mBallGameModel.setX(normalSpeed);
 
         }
     }
