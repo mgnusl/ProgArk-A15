@@ -35,7 +35,7 @@ public class MenuGameState implements GameState {
 		audioLib().get("clank").play(1, 0, 1);
 
         sysController = new SystemKeyController();
-	}
+    }
     @Override
     public void step() {
     	subImage = (subImage+10f/30)%4; //10 fps animation
@@ -82,3 +82,4 @@ public class MenuGameState implements GameState {
         font.render("omfg\ntext", 0, 0);
     }
 }
+

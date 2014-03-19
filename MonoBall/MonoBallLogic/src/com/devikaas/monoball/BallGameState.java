@@ -5,6 +5,7 @@ import com.devikaas.monoball.ingame.controller.KeyboardController;
 import com.devikaas.monoball.ingame.controller.SystemKeyController;
 import com.devikaas.monoball.ingame.controller.TouchController;
 import com.devikaas.monoball.ingame.model.BallGameModel;
+import com.devikaas.monoball.ingame.model.Player;
 import com.devikaas.monoball.ingame.model.Steppable;
 import com.devikaas.monoball.ingame.view.BallGameView;
 
@@ -18,6 +19,7 @@ public class BallGameState implements GameState {
 	BallGameView view;
     List<Controller> controllers = new ArrayList<>();
 
+    Player playerOne;
 	
 	public BallGameState() {
 		model = new BallGameModel();
@@ -28,6 +30,13 @@ public class BallGameState implements GameState {
         controllers.add(new KeyboardController(model));
         controllers.add(new SystemKeyController());
 
+        Player one = new Player(model, "Arne");
+        Player two = new Player(model, "Paul");
+
+        model.addPlayer(one);
+        model.addPlayer(two);
+
+        model.setGameRunning(true);
 	}
 
 	@Override
