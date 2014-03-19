@@ -20,12 +20,12 @@ public class Alarm {
 	}
 	
 	public void step() {
-		for(int i=0; i<alarm.length; i++) {
-		if(alarm[i]!=0) {
-			alarm[i]--;
-			if(alarm[i]<=0) {
-				alarm[i]=0;
-				target.alarm(i);
+        for(int i=0; i<alarm.length; i++) {
+            if(alarm[i]!=0) {
+                alarm[i]--;
+                if(alarm[i]<=0) {
+                    alarm[i]=0;
+                    target.alarm(i);
 				}
 			}
 		}
