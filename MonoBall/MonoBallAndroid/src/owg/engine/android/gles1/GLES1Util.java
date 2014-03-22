@@ -7,11 +7,11 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
 
+import javax.media.opengl.GL3;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.opengl.GLES10;
 import android.opengl.GLU;
-
 import owg.engine.graphics.BlendMode;
 import owg.engine.graphics.ColorF;
 import owg.engine.graphics.GLUtil;
@@ -23,7 +23,6 @@ import owg.engine.graphics.BlendMode.BlendOp;
 import owg.engine.graphics.ColorF.ColorFMutable;
 import owg.engine.util.Calc;
 import owg.engine.util.NamedInputStream;
-
 import static owg.engine.graphics.BlendMode.BlendOp.DST_COLOR;
 import static owg.engine.graphics.Primitive.*;
 
@@ -211,4 +210,23 @@ public class GLES1Util extends GLUtil<GL10> {
 	public void setLineWidth(float w) {
 		gl.glLineWidth(w);
 	}
+	
+	@Override
+	public void viewport(int x, int y, int w, int h) {
+		gl.glViewport(x, y, w, h);
+	}
+    
+	@Override
+	public void scissor(int x, int y, int w, int h) {
+		gl.glScissor(x, y, w, h);
+	}
+
+	@Override
+	public void setScissorEnabled(boolean b) {
+		if(b)
+			gl.glEnable(GL3.GL_SCISSOR_TEST);
+		else
+			gl.glDisable(GL3.GL_SCISSOR_TEST);
+	}
+
 }

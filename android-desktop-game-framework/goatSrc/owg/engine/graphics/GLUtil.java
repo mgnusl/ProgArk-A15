@@ -159,4 +159,14 @@ public abstract class GLUtil<GL> {
 		unitSquare.render();
 		modelviewMatrix().pop();
 	}
+	/**Sets the viewport into the indicated rectangle on the game window.
+	 * The viewport is a transformation from device coordinates into window coordinates.
+	 * All rendered shapes will be transformed into this area of the window.*/
+	public abstract void viewport(int x, int y, int w, int h);
+	/**Restricts rendering to the indicated rectangle on the game window.
+	 * Scissoring simply masks away all pixels outside the rectangle.*/
+	public abstract void scissor(int x, int y, int w, int h);
+	/**Enables or disables the scissor test.
+	 * @see #scissor(int, int, int, int)*/
+	public abstract void setScissorEnabled(boolean b);
 }

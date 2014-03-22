@@ -71,6 +71,7 @@ public class AssetsDesktop extends AssetProducer {
 					result.add(entry);
 				}
 			}
+			jar.close();
 			return result.toArray(new String[result.size()]);
 		}
 		catch(Exception e) {

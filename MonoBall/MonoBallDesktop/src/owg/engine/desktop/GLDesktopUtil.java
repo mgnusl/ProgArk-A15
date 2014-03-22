@@ -3,6 +3,8 @@ package owg.engine.desktop;
 import java.io.IOException;
 
 import javax.media.opengl.GL;
+import javax.media.opengl.GL3;
+
 import owg.engine.graphics.BlendMode;
 import owg.engine.graphics.GLUtil;
 import owg.engine.graphics.Primitive;
@@ -82,5 +84,24 @@ public abstract class GLDesktopUtil<GLT extends GL> extends GLUtil<GLT> {
 	@Override
 	public void setLineWidth(float w) {
 		gl.glLineWidth(w);
+	}
+	
+
+	@Override
+	public void viewport(int x, int y, int w, int h) {
+		gl.glViewport(x, y, w, h);
+	}
+    
+	@Override
+	public void scissor(int x, int y, int w, int h) {
+		gl.glScissor(x, y, w, h);
+	}
+
+	@Override
+	public void setScissorEnabled(boolean b) {
+		if(b)
+			gl.glEnable(GL3.GL_SCISSOR_TEST);
+		else
+			gl.glDisable(GL3.GL_SCISSOR_TEST);
 	}
 }
