@@ -8,7 +8,7 @@ public class Row {
 	static final boolean TOP = false, BOTTOM = true;
 	
 	/**The height of a row in world space.*/
-	public static final float ROW_HEIGHT = 32;
+	public static final float ROW_HEIGHT = 16;
 	/**An unstructured list of blocks.*/
 	private final ArrayList<Block> blocks;
 	/**The y offset in {@link #ROW_HEIGHT}s from the origin.*/

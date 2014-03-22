@@ -1,27 +1,27 @@
 package owg.engine.android.gles1;
 
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
-
-import owg.engine.android.AssetsAndroid;
-import owg.engine.android.PointerHandlerAndroid;
-import owg.engine.android.audio.SoundPoolAudioLib;
-import owg.engine.AssetProducer;
-import owg.engine.Engine;
-import owg.engine.Scene;
-import owg.engine.android.AnimatorAndroid;
-import owg.engine.android.KeyboardHandlerAndroid;
-import owg.engine.audio.AudioLib;
-import owg.engine.graphics.SpriteLib;
-import owg.engine.input.KeyboardHandler;
-import owg.engine.input.PointerHandler;
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
+import owg.engine.AssetProducer;
+import owg.engine.Engine;
+import owg.engine.Scene;
+import owg.engine.android.AnimatorAndroid;
+import owg.engine.android.AssetsAndroid;
+import owg.engine.android.KeyboardHandlerAndroid;
+import owg.engine.android.PointerHandlerAndroid;
+import owg.engine.android.audio.SoundPoolAudioLib;
+import owg.engine.audio.AudioLib;
+import owg.engine.graphics.SpriteLib;
+import owg.engine.input.KeyboardHandler;
+import owg.engine.input.PointerHandler;
+
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
 
 public class SceneAndroidGLES1 extends Scene implements GLSurfaceView.Renderer {
-	private final boolean DEBUG = true;
+	private final boolean DEBUG = false;
     private GLSurfaceView canvas;
     private GLES1Util glUtil;
     
