@@ -1,18 +1,17 @@
 package com.devikaas.monoball;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import owg.engine.GameState;
+
 import com.devikaas.monoball.ingame.controller.Controller;
 import com.devikaas.monoball.ingame.controller.KeyboardController;
 import com.devikaas.monoball.ingame.controller.SystemKeyController;
 import com.devikaas.monoball.ingame.controller.TouchController;
 import com.devikaas.monoball.ingame.model.BallGameModel;
 import com.devikaas.monoball.ingame.model.Player;
-import com.devikaas.monoball.ingame.model.Steppable;
 import com.devikaas.monoball.ingame.view.BallGameView;
-
-import owg.engine.GameState;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class BallGameState implements GameState {
 	BallGameModel model;

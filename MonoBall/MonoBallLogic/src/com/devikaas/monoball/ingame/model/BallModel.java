@@ -1,12 +1,9 @@
 package com.devikaas.monoball.ingame.model;
 
-import com.devikaas.monoball.ingame.model.map.Collidable;
-
-import com.devikaas.monoball.ingame.model.map.blocks.DeathBlock;
-import owg.engine.Engine;
-import owg.engine.util.Calc;
 import owg.engine.util.Compass;
 import owg.engine.util.V3F;
+
+import com.devikaas.monoball.ingame.model.map.Collidable;
 
 public class BallModel implements SpriteModel, Collidable, Steppable {
 	public static final float FRICTION = 0.25f;
@@ -89,23 +86,23 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 		location.set(referencePosition).add(normal, radius);
 		speed.add(normal, normalForce);
 		speed.accelerate(-FRICTION*referenceFriction*normalForce);
-
-		if(normalForce > 4) {
+		
+		/*if(normalForce > 4) {
 			float i = Calc.clamp(0.5f+normalForce/16f, 0f, 1f);
 			// Engine.audioLib().get("clank").play(0.5f+i/2, 0, 1.5f-i/2);
-		}
+		}*/
 		
 		angleSp = speed.createCross(normal).z()/(radius);
-
+		
 		return true;
 	}
 
 	@Override
 	public void step() {
 		location.add(speed);
+		
 		speed.add(model.getGravity());
         speed.accelerate(-speed.sqLen()*AIR_FRICTION);
-		
 		angle += angleSp;
 	}
 

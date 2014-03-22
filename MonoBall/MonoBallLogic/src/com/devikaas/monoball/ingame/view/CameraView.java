@@ -4,8 +4,6 @@ import static owg.engine.Engine.glUtil;
 import owg.engine.Engine;
 import owg.engine.graphics.ColorF;
 import owg.engine.graphics.MatrixStack;
-import owg.engine.util.Calc;
-
 import com.devikaas.monoball.ingame.model.CameraModel;
 /**Performs initial setup for the viewport, projection and modelview matrix.<br/>
  * Also clears the screen prior to drawing.<br/>
@@ -35,7 +33,6 @@ public class CameraView implements Renderable {
 		vx = (Engine.scene().getWidth()-vw)/2;
 		vy = (Engine.scene().getHeight()-vh)/2;
 		
-		Calc.println(vx, vy, vw, vh);
 		glUtil().viewport(vx, vy, vw, vh);
 		glUtil().scissor(vx, vy, vw, vh);
 		glUtil().setScissorEnabled(false);

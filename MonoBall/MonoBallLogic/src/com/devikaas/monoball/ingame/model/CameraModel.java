@@ -1,6 +1,5 @@
 package com.devikaas.monoball.ingame.model;
 
-import static owg.engine.Engine.scene;
 import owg.engine.graphics.ColorF;
 import owg.engine.graphics.ColorF.ColorFMutable;
 import owg.engine.util.V3F;
@@ -26,10 +25,7 @@ public class CameraModel implements Steppable {
 	
 	@Override
 	public void step() {
-        float screenAspect = (float)scene().getWidth()/scene().getHeight();
-        viewHeight = 320;
-        viewWidth = viewHeight*screenAspect;
-
+		
         location.add(0, speed, 0);
 
         // Check location of ball

@@ -16,6 +16,9 @@ public class BasicBlock implements Block, SpriteModel {
 	private float width, height;
 	protected SolidLine[] lines;
 	public BasicBlock(Row row, float xOffset, float width) {
+		if (Float.isInfinite(xOffset) || Float.isNaN(xOffset))
+			throw new IllegalArgumentException("Invalid offset: "+xOffset);
+			
 		row.pushBlock(this);
 		
 		this.topLeft = row.getLocation().clone().add(xOffset, 0, 0);

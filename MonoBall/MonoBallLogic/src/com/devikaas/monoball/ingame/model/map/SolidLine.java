@@ -3,14 +3,21 @@ package com.devikaas.monoball.ingame.model.map;
 import owg.engine.util.V3F;
 /**An abstraction for a solid line segment.*/
 public class SolidLine {
+	/**Whether to allow collisions "behind" the line. 
+	 * This is more likely to create problems if the line is used in shape with sharp angles,
+	 * unless the lines are sorted on distance before each collision test.<br/>
+	 * Under normal circumstances, the line normal will point 90 degrees clockwise from the direction of the line.
+	 * E.g. extrovert polygons should be defined in a counter-clockwise order.*/
+	final boolean allowBackfaceCollisions = false;
+	
 	final float friction;
 	final float length;
 	
 	final V3F pos, scale;
 	/**
-	 * Create a line segment.
-	 * @param start The first position of the line in world space. The directionality is not relevant.
-	 * @param end The last position of the line in world space. The directionality is not relevant.
+	 * Create a line segment. The line normal will point 90 degrees clockwise from the line's direction.
+	 * @param start The first position of the line in world space.
+	 * @param end The last position of the line in world space.
 	 * @param friction The friction of the line segment. Ordinary material would be 1, frictionless material 0.
 	 */
 	public SolidLine(V3F start, V3F end, float friction) {
@@ -18,6 +25,12 @@ public class SolidLine {
 		scale = end.clone().sub(pos);
 		length = scale.len();
 		this.friction = friction;
+		if (Float.isInfinite(length))
+			throw new IllegalArgumentException("You cannot create a NaN-length line: "+start+", "+end);
+		if (Float.isNaN(length))
+			throw new IllegalArgumentException("You cannot create a NaN-length line: "+start+", "+end);
+		if (length == 0)
+			throw new IllegalArgumentException("You cannot create a zero-length line: "+start+", "+end);
 	}
 	/**Check if there is a collision with the indicated object and dispatch a collision event if there is.<br/>
 	 * This method checks for collisions with the line segment itself, not the endpoints.*/
@@ -35,7 +48,10 @@ public class SolidLine {
 			V3F normal = new V3F(-scale.y()/length, scale.x()/length, 0);
 			V3F offset = sphere.getLocation().clone().sub(pos);
 			float vDist = normal.dot(offset);
+			
 			if(vDist < 0) {
+				if(!allowBackfaceCollisions)
+					return false;
 				normal.reverse();
 				vDist = -vDist;
 			}
@@ -93,5 +109,8 @@ public class SolidLine {
 		boolean c1 = evaluateEndpoint(pos, subject);
 		boolean c2 = evaluateEndpoint(pos.clone().add(scale), subject);
 		return c1 || c2;
+	}
+	public V3F getLocation() {
+		return pos;
 	}
 }

@@ -1,6 +1,5 @@
 package com.devikaas.monoball.ingame.controller;
 
-import com.devikaas.monoball.ingame.model.BallGameModel;
 import owg.engine.Engine;
 import owg.engine.input.VirtualKey;
 
