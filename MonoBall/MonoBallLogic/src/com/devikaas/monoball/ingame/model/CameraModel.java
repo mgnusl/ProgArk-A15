@@ -15,7 +15,8 @@ public class CameraModel implements Steppable {
 
     private static final float MARGIN = 200;
 	
-	public CameraModel(V3F location, float width, float height) {
+	public CameraModel(BallGameModel ballGameModel, V3F location, float width, float height) {
+		this.ballGameModel = ballGameModel;
 		this.location = location;
 		this.viewWidth = width;
 		this.viewHeight = height;

@@ -2,12 +2,10 @@ package com.devikaas.monoball.ingame.view;
 
 import com.devikaas.monoball.ingame.model.CameraModel;
 import com.devikaas.monoball.ingame.model.Player;
-import javafx.scene.Camera;
 import owg.engine.Engine;
 import owg.engine.graphics.SpriteFontRenderer;
 
 import com.devikaas.monoball.ingame.model.BallGameModel;
-import owg.engine.util.V3F;
 
 /**Displays textual info about the game*/
 public class HUDView implements Renderable {
@@ -23,7 +21,7 @@ public class HUDView implements Renderable {
 	@Override
 	public void render() {
         // Get steps left for player
-        int stepsLeft = model.getAlarm().get(model.PLAYER_ALARM_INDEX);
+        int stepsLeft = model.getAlarm().get(BallGameModel.PLAYER_ALARM_INDEX);
         int secondsLeft = stepsLeft/Engine.scene().getAnimator().getUpdateFPSFrames();
 
         CameraModel cam = model.getCamera();
