@@ -9,7 +9,9 @@ import owg.engine.AssetProducer;
 import owg.engine.util.NamedInputStream;
 
 public class SpriteLib {
+    public static final String SPRITE_LIB = "textures";
 	private static SpriteLib instance;
+
 	public static SpriteLib sprites() {
 		return instance;
 	}
@@ -22,7 +24,7 @@ public class SpriteLib {
     	instance = this;
     	
         sprites = new HashMap<String, Sprite2D>();
-        loadDir(glUtil, assets, "textures");
+        loadDir(glUtil, assets, SPRITE_LIB);
     }
     /**Loads images from a relative path in the "assets" directory.
      * Note that the textures folder is automatically loaded at initialization.*/
