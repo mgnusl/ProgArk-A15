@@ -75,7 +75,7 @@ public class SceneDesktop extends Scene implements GLEventListener {
     	
     	AudioLib audioLib = new JavaSoundAudioLib(assets);
 		
-    	Engine.initializationComplete(sprites, glUtil, keyboard, pointer, assets, audioLib);
+    	Engine.initializationComplete(sprites, glUtil, keyboard, pointer, assets, audioLib, "");
 	}
 	@Override
 	public void reshape(GLAutoDrawable drawable, int x, int y, int w, int h) {

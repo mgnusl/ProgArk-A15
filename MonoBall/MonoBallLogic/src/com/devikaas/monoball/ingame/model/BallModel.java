@@ -1,5 +1,6 @@
 package com.devikaas.monoball.ingame.model;
 
+import javafx.scene.Camera;
 import owg.engine.util.Compass;
 import owg.engine.util.V3F;
 
@@ -104,11 +105,24 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 		speed.add(model.getGravity());
         speed.accelerate(-speed.sqLen()*AIR_FRICTION);
 		angle += angleSp;
+
+
+		//Kills the player if he's outside the camera view
+		CameraModel cam = model.getCamera();
+		if(location.y() + radius < cam.getLocation().y() ||
+				location.y() - radius > cam.getLocation().y() + cam.getHeight())
+			kill();
+
 	}
 
+	// Switches players, effectivly killing the current player
 	public void kill(){
-		// TODO: Kill player
-		// System.out.println("DEAD");
+		//Gets the amount of time player has been alive.
+		float time = (float)model.getPlayerTimeLimit() - (float)model.getPlayerTimeLimit() / (float)model.getPlayerTime() * (float)model.getAlarm().get(0);
+
+		//If player has been alive less than 0.5 seconds, he is invulnerable
+		if(time > 0.5)
+			model.switchPlayer();
 	}
 
 

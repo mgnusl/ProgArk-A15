@@ -122,4 +122,11 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
         else
             playerTwoModel = p;
     }
+
+	public int getPlayerTime(){
+		return playerTime;
+	}
+	public int getPlayerTimeLimit(){
+		return PLAYER_TIME_LIMIT;
+	}
 }
