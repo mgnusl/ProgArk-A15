@@ -14,9 +14,10 @@ import java.util.List;
 public class InputController implements Controller{
 
     static final InputController INSTANCE = new InputController();
-    List<Controller> controllers = new ArrayList<>();
-    int stepCount = 0;
-    String inputLog = "";
+    private List<Controller> controllers = new ArrayList<>();
+    private int stepCount = 0;
+    private static final int MIN_ALLOC = 1024 * 1024;
+    private StringBuilder inputLog = new StringBuilder(MIN_ALLOC);
     BallGameModel ballGameModel;
 
 
@@ -43,7 +44,9 @@ public class InputController implements Controller{
     public void moveBall(float x){
 
         ballGameModel.setX(x);
-        inputLog += stepCount+"!moveBall:"+x+";";
+        inputLog.append("!moveBall:");
+        inputLog.append(x);
+        inputLog.append(";");
     }
 
     public void registerController(Controller c){
@@ -51,6 +54,6 @@ public class InputController implements Controller{
     }
 
     public String inputLog(){
-        return inputLog;
+        return inputLog.toString();
     }
 }
