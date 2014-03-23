@@ -33,8 +33,11 @@ public class Engine {
     private static AssetProducer assets;
     private static AudioLib audioLib;
 	
-	public static int getDefaultFPS() {
+	public static int getDefaultTickRate() {
 		return 30;
+	}
+	public static boolean useVariableFrameRate() {
+		return true;
 	}
     
 	/**Call to initialize the engine for the given platform

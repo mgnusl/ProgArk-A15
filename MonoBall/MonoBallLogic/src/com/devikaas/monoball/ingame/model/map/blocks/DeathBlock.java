@@ -1,5 +1,7 @@
 package com.devikaas.monoball.ingame.model.map.blocks;
 
+import owg.engine.util.Kryo;
+
 import com.devikaas.monoball.ingame.model.BallModel;
 import com.devikaas.monoball.ingame.model.map.Row;
 import com.devikaas.monoball.ingame.model.map.SolidLine;
@@ -8,6 +10,11 @@ import com.devikaas.monoball.ingame.model.map.Collidable;
  * Created by oknak_000 on 3/18/14.
  */
 public class DeathBlock extends BasicBlock{
+	@Kryo
+	private DeathBlock() {
+		super();
+	}
+	
 	public DeathBlock(Row row, float xOffset, float width){
 		super(row, xOffset, width);
 	}

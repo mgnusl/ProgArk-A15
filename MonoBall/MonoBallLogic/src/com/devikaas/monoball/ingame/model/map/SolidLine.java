@@ -1,5 +1,6 @@
 package com.devikaas.monoball.ingame.model.map;
 
+import owg.engine.util.Kryo;
 import owg.engine.util.V3F;
 /**An abstraction for a solid line segment.*/
 public class SolidLine {
@@ -14,6 +15,11 @@ public class SolidLine {
 	final float length;
 	
 	final V3F pos, scale;
+	
+	@Kryo
+	private SolidLine() {
+		friction=0;length=0;pos=null;scale=null;
+	}
 	/**
 	 * Create a line segment. The line normal will point 90 degrees clockwise from the line's direction.
 	 * @param start The first position of the line in world space.

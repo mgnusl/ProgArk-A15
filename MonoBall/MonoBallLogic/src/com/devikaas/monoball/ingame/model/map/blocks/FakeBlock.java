@@ -1,5 +1,7 @@
 package com.devikaas.monoball.ingame.model.map.blocks;
 
+import owg.engine.util.Kryo;
+
 import com.devikaas.monoball.ingame.model.map.Row;
 import com.devikaas.monoball.ingame.model.map.Collidable;
 
@@ -12,6 +14,11 @@ import com.devikaas.monoball.ingame.model.map.Collidable;
  * This way it will act as a trap/shortcut block
  */
 public class FakeBlock extends BasicBlock {
+	@Kryo
+	private FakeBlock() {
+		super();
+	}
+	
 	public FakeBlock(Row row, float xOffset, float width){
 		super(row, xOffset, width);
 	}

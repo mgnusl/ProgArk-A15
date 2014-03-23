@@ -2,12 +2,18 @@ package com.devikaas.monoball.ingame.model.map;
 
 import java.util.ArrayList;
 
+import owg.engine.util.Kryo;
+
 import com.devikaas.monoball.ingame.model.Steppable;
 
 public class CollidableList implements Steppable {
 	private final ArrayList<Collidable> list;
 	private final MapModel map;
 	
+	@Kryo
+	private CollidableList() {
+		list=null;map=null;
+	}
 	
 	public CollidableList(MapModel map) {
 		list = new ArrayList<Collidable>();

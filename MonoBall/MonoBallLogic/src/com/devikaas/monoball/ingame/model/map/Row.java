@@ -2,6 +2,7 @@ package com.devikaas.monoball.ingame.model.map;
 
 import java.util.ArrayList;
 
+import owg.engine.util.Kryo;
 import owg.engine.util.V3F;
 
 public class Row {
@@ -14,6 +15,11 @@ public class Row {
 	/**The y offset in {@link #ROW_HEIGHT}s from the origin.*/
 	private final int yOffset;
 	
+	@Kryo
+	private Row() {
+		blocks=null;
+		yOffset=0;
+	}
 	public Row(MapModel map, boolean bottom) {
 		map.pushRow(this, bottom);
 		blocks = new ArrayList<>();

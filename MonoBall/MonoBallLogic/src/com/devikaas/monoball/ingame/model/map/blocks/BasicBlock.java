@@ -1,6 +1,7 @@
 package com.devikaas.monoball.ingame.model.map.blocks;
 
 import owg.engine.util.Compass;
+import owg.engine.util.Kryo;
 import owg.engine.util.V3F;
 
 import com.devikaas.monoball.ingame.model.SpriteModel;
@@ -35,6 +36,10 @@ public class BasicBlock implements Block, SpriteModel {
 		lines[3] = new SolidLine(bottomRight, topRight, FRICTION);
 	}
 	
+	@Kryo
+	protected BasicBlock() {
+	}
+
 	@Override
 	public String getSprite() {
 		return "brickBlock";

@@ -1,7 +1,7 @@
 package com.devikaas.monoball.ingame.model;
 
-import javafx.scene.Camera;
 import owg.engine.util.Compass;
+import owg.engine.util.Kryo;
 import owg.engine.util.V3F;
 
 import com.devikaas.monoball.ingame.model.map.Collidable;
@@ -19,7 +19,10 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 	private float angleSp;
 
 	private final V3F speed;
-
+	@Kryo
+	public BallModel() {
+		model=null;location=null;radius=0;speed=null;
+	}
 	public BallModel(BallGameModel model, V3F location, float radius) {
 		this.model = model;
 		this.location = location;

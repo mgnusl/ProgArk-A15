@@ -1,6 +1,7 @@
 package com.devikaas.monoball.ingame.model;
 
 import owg.engine.Engine;
+import owg.engine.util.Kryo;
 
 public class Player implements Steppable {
     private int score = 0;
@@ -13,8 +14,11 @@ public class Player implements Steppable {
 
     private final BallGameModel ballGameModel;
     private final String name;
-
-
+    
+    @Kryo
+    private Player() {
+    	ballGameModel=null;name=null;
+	}
     public Player(BallGameModel ballGameModel, String name) {
         counter = 0;
         this.ballGameModel = ballGameModel;
@@ -24,7 +28,7 @@ public class Player implements Steppable {
     @Override
     public void step() {
     	counter++;
-        if(counter >= Engine.getDefaultFPS()*POINT_DELAY) {
+        if(counter >= Engine.getDefaultTickRate()*POINT_DELAY) {
             counter = 0;
             score += POINT_BURST;
         }
