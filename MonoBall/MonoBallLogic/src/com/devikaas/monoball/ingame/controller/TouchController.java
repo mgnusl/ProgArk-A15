@@ -1,7 +1,6 @@
 package com.devikaas.monoball.ingame.controller;
 
 import com.devikaas.monoball.ingame.model.BallGameModel;
-import com.devikaas.monoball.ingame.model.Steppable;
 import owg.engine.Engine;
 
 public class TouchController implements Controller {

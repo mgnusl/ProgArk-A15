@@ -1,7 +1,6 @@
 package com.devikaas.monoball.ingame.model;
 
 import owg.engine.Engine;
-import owg.engine.input.VirtualKey;
 import owg.engine.util.Alarm;
 import owg.engine.util.V3F;
 
@@ -35,7 +34,10 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
 
 
 	public BallGameModel() {
-		cameraModel = new CameraModel(this, new V3F(0, -160, 0));
+		final float w = MapModel.MAP_WIDTH;
+		final float h = (w*16)/9;
+		cameraModel = new CameraModel(this, new V3F(MapModel.MAP_X, -h/2f, 0), w, h);
+		
 		mapModel = new MapModel(this, new AssetMapGenerator(SEED));
 		collisionHandler = new CollidableList(mapModel);
 		gravity = new V3F(0, 0.8f, 0);
@@ -120,4 +122,11 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
         else
             playerTwoModel = p;
     }
+
+	public int getPlayerTime(){
+		return playerTime;
+	}
+	public int getPlayerTimeLimit(){
+		return PLAYER_TIME_LIMIT;
+	}
 }

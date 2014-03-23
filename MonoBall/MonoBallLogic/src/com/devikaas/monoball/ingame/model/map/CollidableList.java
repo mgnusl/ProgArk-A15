@@ -30,6 +30,9 @@ public class CollidableList implements Steppable {
 					b.evaluateSurface(l);
 				}
 			}
+			map.getLeftEdge().evaluateLine(l);
+			map.getRightEdge().evaluateLine(l);
+			
 			for(Row r : rows) {
 				for(Block b : r.getBlocks()) {
 					b.evaluateEndpoints(l);

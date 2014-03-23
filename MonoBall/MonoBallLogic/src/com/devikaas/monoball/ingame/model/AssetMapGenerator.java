@@ -39,7 +39,6 @@ public class AssetMapGenerator implements MapGenerator {
                  BufferedReader br = new BufferedReader(isr);){
 
                 String line;
-                int i = 0;
                 ArrayList<String> chunk = new ArrayList<>();
                 while ((line = br.readLine()) != null) {
                     chunk.add(line);
@@ -54,12 +53,16 @@ public class AssetMapGenerator implements MapGenerator {
         }
 
 
-        //TODO: Reverse row pushing when bottom is false
-        Row r;
+        //TODO: Reverse row pushing when bottom is false?
+        
+        
+        //Mandatory clear row
+        new Row(map, bottom);
+        
         for (int i = 0; i < cachedChunks[index].length; i++) {
             String line = cachedChunks[index][i];
 
-            r = new Row(map, bottom);
+            Row r = new Row(map, bottom);
 
             char blockType;
             for (int j = 0; j < line.length(); j++) {

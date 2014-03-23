@@ -6,28 +6,39 @@ import com.devikaas.monoball.ingame.model.BallGameModel;
 import com.devikaas.monoball.ingame.model.Steppable;
 
 import owg.engine.util.Calc;
+import owg.engine.util.V3F;
 
 public class MapModel implements Steppable {
 	public static final float MAP_WIDTH = 320;
 	public static final float MAP_X = 0;
 	
-	private BallGameModel ballGameModel;
+	private final BallGameModel ballGameModel;
 	
 	/**Global list of rows.*/
-	private ArrayList<Row> rows;
+	private final ArrayList<Row> rows;
 	/**The index in the row list where the row at y position 0 will be.*/
 	int originIndex;
 	
 	/**The map generator which will spawn new rows on demand.*/
 	private final MapGenerator generator;
+	/**The edges of the map, used to prevent objects from leaving the game area.*/
+	private final SolidLine leftEdge, rightEdge;
 	
 	/**Create a new, empty map model.
 	 * The generator will be queried lazily to spawn the map.*/
 	public MapModel(BallGameModel ballGameModel, MapGenerator generator) {
 		this.ballGameModel = ballGameModel;
+		this.generator = generator;
+		
 		rows = new ArrayList<Row>();
 		originIndex = 0;
-		this.generator = generator;
+		
+		leftEdge =  new SolidLine(	new V3F(MAP_X, ballGameModel.getCamera().getHeight(), 0),
+									new V3F(MAP_X, 0, 0), 
+									1);
+		rightEdge = new SolidLine(	new V3F(MAP_X+MAP_WIDTH, 0, 0), 
+									new V3F(MAP_X+MAP_WIDTH, ballGameModel.getCamera().getHeight(), 0), 
+									1);
 	}
 	/**Pushes a row to the top or bottom of the row list. This is called automatically by the row constructor.*/
 	void pushRow(Row r, boolean bottom) {
@@ -63,6 +74,10 @@ public class MapModel implements Steppable {
 	}
 	@Override
 	public void step() {
+		//Move the edge lines to match the camera y-position
+		leftEdge.getLocation().y(ballGameModel.getCamera().getLocation().y()+ballGameModel.getCamera().getHeight());
+		rightEdge.getLocation().y(ballGameModel.getCamera().getLocation().y());
+		
 		while(ballGameModel.getCamera().getLocation().y() < getMinimumGeneratedY())
 			generator.generateChunk(this, false);
 		while(ballGameModel.getCamera().getLocation().y()+ballGameModel.getCamera().getHeight() > getMaximumGeneratedY())
@@ -75,5 +90,14 @@ public class MapModel implements Steppable {
 	/**Returns the y-position of the <b>lower</b> edge of the lowermost generated row in world space.*/
 	private float getMaximumGeneratedY() {
 		return rows.size()-originIndex*Row.ROW_HEIGHT;
+	}
+	/**Returns a line covering the left edge of the map.*/
+	public SolidLine getLeftEdge() {
+		return leftEdge;
+	}
+	
+	/**Returns a line covering the right edge of the map.*/
+	public SolidLine getRightEdge() {
+		return rightEdge;
 	}
 }

@@ -18,16 +18,18 @@ public class MainFrame extends Frame implements EntryPoint{
 
     public MainFrame() {
         this.setTitle("MonoBall Desktop");
-        this.setSize(720, 1080);
+        final int h = Toolkit.getDefaultToolkit().getScreenSize().height-80;
         Engine.initializeEngine(Engine.TargetPlatform.Desktop, this);
+        Engine.scene().setPreferredSize((h*9)/16, h);
         this.addWindowListener(new WindowAdapter() {
         	@Override
         	public void windowClosing(WindowEvent e) {
         		System.exit(0);
         	}
 		});
+        this.pack();
         this.setVisible(true);
-
+        this.setLocationRelativeTo(null);
     }
 
     @Override

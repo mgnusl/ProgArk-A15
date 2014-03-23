@@ -1,6 +1,5 @@
 package com.devikaas.monoball.ingame.model;
 
-import static owg.engine.Engine.scene;
 import owg.engine.graphics.ColorF;
 import owg.engine.graphics.ColorF.ColorFMutable;
 import owg.engine.util.V3F;
@@ -15,19 +14,18 @@ public class CameraModel implements Steppable {
 
     private static final float MARGIN = 200;
 	
-	public CameraModel(BallGameModel ballGameModel, V3F location) {
-        this.ballGameModel = ballGameModel;
+	public CameraModel(BallGameModel ballGameModel, V3F location, float width, float height) {
 		this.location = location;
+		this.viewWidth = width;
+		this.viewHeight = height;
 		speed = 0;
 		clearColor = ColorF.LTGRAY.getMutableCopy();
+		this.ballGameModel = ballGameModel;
 	}
 	
 	@Override
 	public void step() {
-        float screenAspect = (float)scene().getWidth()/scene().getHeight();
-        viewHeight = 320;
-        viewWidth = viewHeight*screenAspect;
-
+		
         location.add(0, speed, 0);
 
         // Check location of ball
