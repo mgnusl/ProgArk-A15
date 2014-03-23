@@ -1,8 +1,11 @@
 package com.devikaas.monoball.ingame.model;
 
+import owg.engine.Engine;
+
 public class Player implements Steppable {
     private int score = 0;
     private long prevTime;
+    private long counter;
 
     private final static int POINT_DELAY = 4;
     private final static int POINT_BURST = 2;
@@ -13,14 +16,16 @@ public class Player implements Steppable {
 
 
     public Player(BallGameModel ballGameModel, String name) {
-        prevTime = System.currentTimeMillis();
+        prevTime = 0;
+        counter = 0;
         this.ballGameModel = ballGameModel;
         this.name = name;
     }
 
     @Override
     public void step() {
-        long currentTime = System.currentTimeMillis();
+    	counter++;
+        long currentTime = (counter*1000)/Engine.getDefaultFPS();
         if (currentTime - prevTime > POINT_DELAY * 1000) {
             prevTime = currentTime;
             score += POINT_BURST;
