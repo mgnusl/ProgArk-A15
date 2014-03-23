@@ -26,7 +26,7 @@ public class Player implements Steppable {
     public void step() {
     	counter++;
         long currentTime = (counter*1000)/Engine.getDefaultFPS();
-        if (currentTime - prevTime > POINT_DELAY * 1000) {
+        while (currentTime - prevTime > POINT_DELAY * 1000) {
             prevTime = currentTime;
             score += POINT_BURST;
         }
