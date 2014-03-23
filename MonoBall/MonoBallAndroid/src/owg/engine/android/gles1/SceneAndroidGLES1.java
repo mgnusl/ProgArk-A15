@@ -2,15 +2,13 @@ package owg.engine.android.gles1;
 
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
+import android.os.Environment;
 import android.view.Window;
 import android.view.WindowManager;
 import owg.engine.AssetProducer;
 import owg.engine.Engine;
 import owg.engine.Scene;
-import owg.engine.android.AnimatorAndroid;
-import owg.engine.android.AssetsAndroid;
-import owg.engine.android.KeyboardHandlerAndroid;
-import owg.engine.android.PointerHandlerAndroid;
+import owg.engine.android.*;
 import owg.engine.android.audio.SoundPoolAudioLib;
 import owg.engine.audio.AudioLib;
 import owg.engine.graphics.SpriteLib;
@@ -57,6 +55,8 @@ public class SceneAndroidGLES1 extends Scene implements GLSurfaceView.Renderer {
     		gl = new DebugGLES1(gl);
     	if(!Engine.isInitializationComplete()) {
 	    	AssetProducer assets = new AssetsAndroid(canvas.getContext());
+            String rootPath = Environment.getExternalStorageDirectory().toString();
+
 	    	glUtil = new GLES1Util(gl);
 	    	animator = new AnimatorAndroid(Engine.getDefaultFPS(), canvas);
 	    	SpriteLib sprites = new SpriteLib(glUtil, assets);
@@ -66,7 +66,7 @@ public class SceneAndroidGLES1 extends Scene implements GLSurfaceView.Renderer {
 	    	
 	    	AudioLib audioLib = new SoundPoolAudioLib(assets);
 	    	
-	    	Engine.initializationComplete(sprites, glUtil, keyboard, pointer, assets, audioLib);
+	    	Engine.initializationComplete(sprites, glUtil, keyboard, pointer, assets, audioLib, rootPath);
     	}
     	else {
     		//OpenGL context has been recreated. Need to reload sprites...

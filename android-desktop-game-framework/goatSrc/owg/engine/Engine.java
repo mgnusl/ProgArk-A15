@@ -32,6 +32,9 @@ public class Engine {
     private static PointerHandler pointer;
     private static AssetProducer assets;
     private static AudioLib audioLib;
+
+    // Path to root folder
+    private static String root;
 	
 	public static int getDefaultTickRate() {
 		return 30;
@@ -87,9 +90,11 @@ public class Engine {
     	    KeyboardHandler keyboard,
     	    PointerHandler pointer,
     	    AssetProducer assets,
-    	    AudioLib audioLib) {
+    	    AudioLib audioLib,
+            String root) {
     	
     	Engine.assets = assets;
+        Engine.root = root;
     	
     	Engine.glUtil = glUtil;
     	Engine.sprites = sprites;
@@ -102,6 +107,7 @@ public class Engine {
     	assert Engine.platform != null;
     	assert Engine.entryPoint != null;
     	assert Engine.assets != null;
+        assert Engine.root != null;
     	
     	assert Engine.scene != null;
     	assert Engine.scene.getAnimator() != null;
@@ -138,6 +144,9 @@ public class Engine {
     }
     public static Scene scene() {
     	return scene;
+    }
+    public static String getRootPath() {
+        return root;
     }
     public static KeyboardHandler keyboard() {
     	return keyboard;

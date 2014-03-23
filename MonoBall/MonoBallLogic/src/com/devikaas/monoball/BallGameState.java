@@ -5,9 +5,12 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import owg.engine.Engine;
 import owg.engine.GameState;
+import owg.engine.input.VirtualKey;
 
 import com.devikaas.monoball.ingame.controller.Controller;
+import com.devikaas.monoball.ingame.controller.InputController;
 import com.devikaas.monoball.ingame.controller.KeyboardController;
 import com.devikaas.monoball.ingame.controller.SystemKeyController;
 import com.devikaas.monoball.ingame.controller.TouchController;
@@ -23,9 +26,11 @@ public class BallGameState implements GameState {
 	BallGameView view;
     List<Controller> controllers = new ArrayList<>();
     
-    int timer;
     Kryo kryoSerializer;
-    byte[] oldsModel;
+    byte[] savedModel;
+
+    InputController inputController = InputController.getInstance();
+    Player playerOne;
 	
 	public BallGameState() {
 		Player one = new Player(model, "Arne");
@@ -35,17 +40,18 @@ public class BallGameState implements GameState {
         
         setModel(m);
         kryoSerializer = new Kryo();
+        savedModel = null;
 	}
 	
 	public void setModel(BallGameModel m) {
 		model = m;
 		view = new BallGameView(model);
-
-        // Add all controllers
-		controllers.clear();
-        controllers.add(new TouchController(model));
-        controllers.add(new KeyboardController(model));
-        controllers.add(new SystemKeyController());
+		
+		inputController.setGameModel(model);
+        inputController.registerController(new TouchController());
+        inputController.registerController(new SystemKeyController());
+        inputController.registerController(new KeyboardController());
+        //inputController.registerController(new ReplayController(""));
 	}
 	
 	public BallGameModel getModel() {
@@ -56,14 +62,17 @@ public class BallGameState implements GameState {
 	public void step() {
         // Reset model X-celeration
         model.setX(0);
-
-        for (Controller c : controllers) {
-            c.step();
-        }
+        inputController.step();
 
         model.step();
         
-        timer++;
+        if(Engine.keyboard().isPressed(VirtualKey.VK_F5)) {
+        	savedModel = getModelBytes(); 
+        }
+        if(Engine.keyboard().isPressed(VirtualKey.VK_F6)) {
+        	if(savedModel != null)
+        		setModelBytes(savedModel);
+        }
 	}
 	/**Sets the current game model from the given byte array, as returned by {@link #getModelBytes()}*/
 	public void setModelBytes(byte[] modelBytes) {

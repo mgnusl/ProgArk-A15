@@ -11,7 +11,7 @@ import com.devikaas.monoball.ingame.model.map.Row;
 import com.devikaas.monoball.ingame.model.map.SolidLine;
 
 public class BasicBlock implements Block, SpriteModel {
-	public final static float FRICTION = 1;
+    private float friction;
 	
 	private V3F topLeft;
 	private float width, height;
@@ -25,15 +25,16 @@ public class BasicBlock implements Block, SpriteModel {
 		this.topLeft = row.getLocation().clone().add(xOffset, 0, 0);
 		this.width = width;
 		this.height = Row.ROW_HEIGHT;
+        this.friction = 1;
 		
 		lines = new SolidLine[4];
 		V3F topRight = topLeft.clone().add(width, 0, 0);
 		V3F bottomLeft = topLeft.clone().add(0, height, 0);
 		V3F bottomRight = topLeft.clone().add(width, height, 0);
-		lines[0] = new SolidLine(topRight, topLeft, FRICTION);
-		lines[1] = new SolidLine(topLeft, bottomLeft, FRICTION);
-		lines[2] = new SolidLine(bottomLeft, bottomRight, FRICTION);
-		lines[3] = new SolidLine(bottomRight, topRight, FRICTION);
+		lines[0] = new SolidLine(topRight, topLeft, friction);
+		lines[1] = new SolidLine(topLeft, bottomLeft, friction);
+		lines[2] = new SolidLine(bottomLeft, bottomRight, friction);
+		lines[3] = new SolidLine(bottomRight, topRight, friction);
 	}
 	
 	@Kryo
@@ -86,5 +87,9 @@ public class BasicBlock implements Block, SpriteModel {
 		for(SolidLine l : lines)
 			l.evaluateEndpoints(subject);
 	}
+
+    public void setFriction(float friction) {
+        this.friction = friction;
+    }
 
 }
