@@ -35,18 +35,19 @@ public class BallGameView {
 		float alpha = (currentTime-Engine.scene().getLastStepTime())/tickMs;
 		camera.render(alpha);
 
+		float camy = model.getCamera().getInterpolatedLocation(alpha).y();
 
 		Sprite2D BG = sprites().get("backgroundTile");
-		float multiplication = (float)Math.floor(model.getCamera().getCurrentLocation().y() / model.getCamera().getHeight())/* + Calc.cyclic(model.getCamera().getCurrentLocation().y() * 0.8f / BG.getHeight(), 1f)*/;
+		float bgy = (float)Calc.cyclic(camy * 0.2f, camy-model.getCamera().getHeight(), camy);
 
 		BG.render(0,
-				new V3F(0, model.getCamera().getHeight() * multiplication, 0),
+				new V3F(0, bgy, 0),
 				Compass.NORTHWEST,
 				model.getCamera().getWidth() / BG.getWidth(),
 				model.getCamera().getHeight() / BG.getHeight(),
 				0);
 		BG.render(0,
-				new V3F(0, model.getCamera().getHeight() * (multiplication + 1), 0),
+				new V3F(0, model.getCamera().getHeight()+bgy, 0),
 				Compass.NORTHWEST, model.getCamera().getWidth() / BG.getWidth(),
 				model.getCamera().getHeight() / BG.getHeight(),
 				0);
