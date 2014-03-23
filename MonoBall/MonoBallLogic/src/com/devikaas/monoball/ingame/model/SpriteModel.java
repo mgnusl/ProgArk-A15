@@ -9,8 +9,9 @@ public interface SpriteModel {
 	public String getSprite();
 	/**Returns the subimage of the sprite to render. Must lie within the valid frame range of {@link #getSprite()}.*/
 	public int getSubimage();
-	/**Returns the location where the sprite will be rendered.*/
-	public V3F getSpriteLocation();
+	/**Returns the location where the sprite will be rendered.
+	 * @param alpha The interpolation factor the the location, from previous(0) to current(1) position*/
+	public V3F getSpriteLocation(float alpha);
 	/**Returns the location of the origin of the sprite. By example,<br/>
 	 * Northwest will cause the upper left corner of the sprite to appear at {@link #getSpriteLocation()}.<br/>
 	 * Center will cause the center of the sprite to appear at {@link #getSpriteLocation()}.<br/>

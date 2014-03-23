@@ -19,18 +19,19 @@ public class BallGameView {
 	}
 	/**Renders the entire view.*/
 	public void render() {
-		camera.render();
-		new SpriteView(model.getBall()).render();//TODO
-		map.render();
-		hud.render();
+		float alpha = 1;
+		camera.render(alpha);
+		new SpriteView(model.getBall()).render(alpha);//TODO
+		map.render(alpha);
+		hud.render(alpha);
 	}
 	
 	/**Returns the minimum y value in game world space, that the current projection covers.*/
-	public float getVisibleRangeMinY() {
-		return model.getCamera().getLocation().y();
+	public float getVisibleRangeMinY(float alpha) {
+		return model.getCamera().getInterpolatedLocation(alpha).y();
 	}
 	/**Returns the maximum y value in game world space, that the current projection covers.*/
-	public float getVisibleRangeMaxY() {
-		return model.getCamera().getLocation().y()+model.getCamera().getHeight();
+	public float getVisibleRangeMaxY(float alpha) {
+		return model.getCamera().getInterpolatedLocation(alpha).y()+model.getCamera().getHeight();
 	}
 }

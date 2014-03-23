@@ -6,8 +6,9 @@ import owg.engine.util.Kryo;
 import owg.engine.util.V3F;
 /**The in-game camera. Defines the visible area of the game world.*/
 public class CameraModel implements Steppable {
+	private V3F previousLocation;
 	private V3F location;
-	private float speed;
+	private float verticalSpeed;
 	private float viewWidth, viewHeight;
 	
 	private ColorFMutable clearColor;
@@ -22,17 +23,18 @@ public class CameraModel implements Steppable {
     
 	public CameraModel(BallGameModel ballGameModel, V3F location, float width, float height) {
 		this.location = location;
+		this.previousLocation = location.clone();
 		this.viewWidth = width;
 		this.viewHeight = height;
-		speed = 0;
+		verticalSpeed = 0;
 		clearColor = ColorF.LTGRAY.getMutableCopy();
 		this.ballGameModel = ballGameModel;
 	}
 	
 	@Override
 	public void step() {
-		
-        location.add(0, speed, 0);
+		previousLocation.set(location);
+        location.add(0, verticalSpeed, 0);
 
         // Check location of ball
         float ballY = ballGameModel.getBall().getLocation().y();
@@ -50,12 +52,13 @@ public class CameraModel implements Steppable {
             if (totalBall >= totalCam) {
                 location.add(0, totalBall - totalCam, 0);
             }
-        }
-
-	}	
-	
-	public V3F getLocation() {
+        } 
+	}
+	public V3F getCurrentLocation() {
 		return location;
+	}
+	public V3F getInterpolatedLocation(float alpha) {
+		return previousLocation.clone().multiply(1-alpha).add(location, alpha);
 	}
 
 	public float getWidth() {
@@ -71,8 +74,8 @@ public class CameraModel implements Steppable {
 	}
 
 	public void setVerticalSpeed(float ySpeed) {
-		this.speed = ySpeed;
+		this.verticalSpeed = ySpeed;
 	}
 
-    public void reverse() {speed *= -1;}
+    public void reverse() {verticalSpeed *= -1;}
 }

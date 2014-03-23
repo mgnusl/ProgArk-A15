@@ -20,15 +20,17 @@ public class MapView implements Renderable {
 	}
 
 	@Override
-	public void render() {
+	public void render(float alpha) {
 		Engine.glUtil().setColor(ColorF.WHITE);
 		SpriteView s = new SpriteView(null);
 		
-		for(Row r : model.getAccessibleRows(gameView.getVisibleRangeMinY(), gameView.getVisibleRangeMaxY())) {
+		Row[] rr = model.getAccessibleRows(gameView.getVisibleRangeMinY(alpha), gameView.getVisibleRangeMaxY(alpha));
+		
+		for(Row r : rr) {
 			for(Block b : r.getBlocks()) {
 				if(b instanceof SpriteModel) {
 					s.setModel((SpriteModel)b);
-					s.render();
+					s.render(alpha);
 				}
 			}
 		}

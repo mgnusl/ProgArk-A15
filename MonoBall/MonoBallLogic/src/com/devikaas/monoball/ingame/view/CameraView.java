@@ -4,6 +4,8 @@ import static owg.engine.Engine.glUtil;
 import owg.engine.Engine;
 import owg.engine.graphics.ColorF;
 import owg.engine.graphics.MatrixStack;
+import owg.engine.util.V3F;
+
 import com.devikaas.monoball.ingame.model.CameraModel;
 /**Performs initial setup for the viewport, projection and modelview matrix.<br/>
  * Also clears the screen prior to drawing.<br/>
@@ -17,7 +19,7 @@ public class CameraView implements Renderable {
 	}
 	
 	@Override
-	public void render() {
+	public void render(float alpha) {
 		float myAspect = (float)model.getWidth()/model.getHeight();
 		float screenAspect = (float)Engine.scene().getWidth()/Engine.scene().getHeight();
 		int vx, vy, vw, vh;
@@ -46,8 +48,9 @@ public class CameraView implements Renderable {
         //Set an orthographic projection
         MatrixStack projection = glUtil().projectionMatrix();
         projection.identity();
-        projection.ortho(model.getLocation().x(), model.getLocation().x()+model.getWidth(),
-        		model.getLocation().y()+model.getHeight(), model.getLocation().y(), -1, 1);
+        V3F loc = model.getInterpolatedLocation(alpha);
+        projection.ortho(loc.x(), loc.x()+model.getWidth(),
+        		loc.y()+model.getHeight(), loc.y(), -1, 1);
         
         //Reset the model transformation matrix
         MatrixStack modelview = glUtil().modelviewMatrix();

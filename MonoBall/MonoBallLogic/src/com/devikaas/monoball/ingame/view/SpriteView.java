@@ -17,8 +17,8 @@ public class SpriteView implements Renderable {
 	}
 	/**Renders the view with the current sprite model.*/
 	@Override
-	public void render() {
-		Engine.sprites().get(model.getSprite()).render(model.getSubimage(), model.getSpriteLocation(), model.getOrientation(), model.getXScale(), model.getYScale(), model.getAngle());
+	public void render(float alpha) {
+		Engine.sprites().get(model.getSprite()).render(model.getSubimage(), model.getSpriteLocation(alpha), model.getOrientation(), model.getXScale(), model.getYScale(), model.getAngle());
 	}
 
 

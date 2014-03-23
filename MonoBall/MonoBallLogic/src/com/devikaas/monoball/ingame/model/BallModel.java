@@ -112,8 +112,8 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 
 		//Kills the player if he's outside the camera view
 		CameraModel cam = model.getCamera();
-		if(location.y() + radius < cam.getLocation().y() ||
-				location.y() - radius > cam.getLocation().y() + cam.getHeight())
+		if(location.y() + radius < cam.getCurrentLocation().y() ||
+				location.y() - radius > cam.getCurrentLocation().y() + cam.getHeight())
 			kill();
 
 	}
