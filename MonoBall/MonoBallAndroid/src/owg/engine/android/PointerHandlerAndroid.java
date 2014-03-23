@@ -1,13 +1,13 @@
 
+
 package owg.engine.android;
-
-import java.util.LinkedList;
-import java.util.Queue;
-
-import owg.engine.input.PointerHandler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import owg.engine.input.PointerHandler;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class PointerHandlerAndroid extends PointerHandler implements OnTouchListener {
 	/**The number of current touch manipulation locations*/

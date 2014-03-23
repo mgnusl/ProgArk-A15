@@ -1,26 +1,16 @@
 package owg.engine.android.gles1;
 
-import java.io.IOException;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-import java.nio.IntBuffer;
-import java.nio.ShortBuffer;
-import javax.microedition.khronos.opengles.GL10;
-
 import android.opengl.GLES10;
 import android.opengl.GLU;
-import owg.engine.graphics.BlendMode;
-import owg.engine.graphics.ColorF;
-import owg.engine.graphics.GLUtil;
-import owg.engine.graphics.MatrixStack;
-import owg.engine.graphics.PolygonModelF;
-import owg.engine.graphics.Primitive;
-import owg.engine.graphics.Sprite2D;
+import owg.engine.graphics.*;
 import owg.engine.graphics.BlendMode.BlendOp;
 import owg.engine.graphics.ColorF.ColorFMutable;
 import owg.engine.util.Calc;
 import owg.engine.util.NamedInputStream;
+
+import javax.microedition.khronos.opengles.GL10;
+import java.io.IOException;
+import java.nio.*;
 
 public class GLES1Util extends GLUtil<GL10> {
 	/**OpenGL1 modelview matrix stack*/
