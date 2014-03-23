@@ -58,7 +58,7 @@ public class SceneAndroidGLES1 extends Scene implements GLSurfaceView.Renderer {
             String rootPath = Environment.getExternalStorageDirectory().toString();
 
 	    	glUtil = new GLES1Util(gl);
-	    	animator = new AnimatorAndroid(Engine.getDefaultFPS(), canvas);
+	    	animator = new AnimatorAndroid(Engine.getDefaultTickRate(), canvas);
 	    	SpriteLib sprites = new SpriteLib(glUtil, assets);
 	    	
 	    	KeyboardHandler keyboard = new KeyboardHandlerAndroid(canvas);
