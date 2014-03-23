@@ -28,7 +28,8 @@ public class SceneDesktop extends Scene implements GLEventListener {
     private GLCanvas canvas;
     private GLUtil<GL3> glUtil;
     
-    private long vbrGameClock;
+    private Long vbrGameClock;
+    private long lastStepTime;
 	
     public int getWidth() {
     	return canvas.getWidth();
@@ -52,6 +53,10 @@ public class SceneDesktop extends Scene implements GLEventListener {
 		glUtil.step();
 		
 		if(Engine.useVariableFrameRate()) {
+			if(vbrGameClock == null) {
+				step();
+				vbrGameClock = System.currentTimeMillis();
+			}
 			//The time between game ticks in milliseconds
 			int tickMs = 1000/Engine.getDefaultTickRate();
 			//Prevent accumulation of too much lag, in a way that is consistent with constant rate behaviour
@@ -75,6 +80,7 @@ public class SceneDesktop extends Scene implements GLEventListener {
 	}
 	
 	private void step() {
+		lastStepTime = System.currentTimeMillis();
 		if(state != null) {
 			state.step();
 			
@@ -111,7 +117,7 @@ public class SceneDesktop extends Scene implements GLEventListener {
     	
     	AudioLib audioLib = new JavaSoundAudioLib(assets);
     	
-    	vbrGameClock = System.currentTimeMillis();
+    	vbrGameClock = null;
 		
     	Engine.initializationComplete(sprites, glUtil, keyboard, pointer, assets, audioLib, "");
 	}
@@ -125,4 +131,8 @@ public class SceneDesktop extends Scene implements GLEventListener {
 		{
 		canvas.setPreferredSize(new Dimension(width, height));
 		}
+	@Override
+	public long getLastStepTime() {
+		return lastStepTime;
+	}
 }

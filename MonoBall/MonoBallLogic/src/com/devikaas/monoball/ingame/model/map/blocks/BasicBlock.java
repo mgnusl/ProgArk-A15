@@ -52,7 +52,7 @@ public class BasicBlock implements Block, SpriteModel {
 	}
 
 	@Override
-	public V3F getSpriteLocation() {
+	public V3F getSpriteLocation(float alpha) {
 		return topLeft;
 	}
 

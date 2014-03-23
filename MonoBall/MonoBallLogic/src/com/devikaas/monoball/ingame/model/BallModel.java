@@ -12,6 +12,7 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 
 	private final BallGameModel model;
 	
+	private final V3F previousLocation;
 	private final V3F location;
 	private final float radius;
 	
@@ -21,11 +22,12 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 	private final V3F speed;
 	@Kryo
 	public BallModel() {
-		model=null;location=null;radius=0;speed=null;
+		model=null;location=null;previousLocation=null;radius=0;speed=null;
 	}
 	public BallModel(BallGameModel model, V3F location, float radius) {
 		this.model = model;
 		this.location = location;
+		this.previousLocation = location.clone();
 		this.speed = new V3F();
 		this.radius = radius;
 		this.angle = 0;
@@ -43,8 +45,8 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 	}
 
 	@Override
-	public V3F getSpriteLocation() {
-		return location;
+	public V3F getSpriteLocation(float alpha) {
+		return previousLocation.clone().multiply(1-alpha).add(location, alpha);
 	}
 
 	@Override
@@ -103,6 +105,7 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 
 	@Override
 	public void step() {
+		previousLocation.set(location);
 		location.add(speed);
 		
 		speed.add(model.getGravity());

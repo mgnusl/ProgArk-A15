@@ -36,4 +36,6 @@ public abstract class Scene {
 	}
 	/**Set the default size, for window managers that can handle differently sized windows.*/
 	public abstract void setPreferredSize(int width, int height);
+	/**Get the system time for the last step event*/
+	public abstract long getLastStepTime();
 }
