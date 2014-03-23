@@ -6,8 +6,6 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
-
-import javax.media.opengl.GL3;
 import javax.microedition.khronos.opengles.GL10;
 
 import android.opengl.GLES10;
@@ -23,8 +21,6 @@ import owg.engine.graphics.BlendMode.BlendOp;
 import owg.engine.graphics.ColorF.ColorFMutable;
 import owg.engine.util.Calc;
 import owg.engine.util.NamedInputStream;
-import static owg.engine.graphics.BlendMode.BlendOp.DST_COLOR;
-import static owg.engine.graphics.Primitive.*;
 
 public class GLES1Util extends GLUtil<GL10> {
 	/**OpenGL1 modelview matrix stack*/
@@ -224,9 +220,9 @@ public class GLES1Util extends GLUtil<GL10> {
 	@Override
 	public void setScissorEnabled(boolean b) {
 		if(b)
-			gl.glEnable(GL3.GL_SCISSOR_TEST);
+			gl.glEnable(GL10.GL_SCISSOR_TEST);
 		else
-			gl.glDisable(GL3.GL_SCISSOR_TEST);
+			gl.glDisable(GL10.GL_SCISSOR_TEST);
 	}
 
 }
