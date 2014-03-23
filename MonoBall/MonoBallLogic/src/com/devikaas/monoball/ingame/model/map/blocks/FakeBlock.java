@@ -1,10 +1,11 @@
 package com.devikaas.monoball.ingame.model.map.blocks;
 
+import owg.engine.util.Kryo;
+
 import com.devikaas.monoball.ingame.model.map.Row;
 import com.devikaas.monoball.ingame.model.map.Collidable;
 
 /**
- * Created by oknak_000 on 3/20/14.
  *
  * Simple block that is just like BasicBlock in every way,
  * except it does not handle collisions.
@@ -13,6 +14,12 @@ import com.devikaas.monoball.ingame.model.map.Collidable;
  */
 public class FakeBlock extends BasicBlock {
     public static final char TYPE = 'f';
+
+	@Kryo
+	private FakeBlock() {
+		super();
+	}
+
 	public FakeBlock(Row row, float xOffset, float width){
 		super(row, xOffset, width);
 	}

@@ -67,7 +67,7 @@ public class SceneDesktop extends Scene implements GLEventListener {
     	System.out.println("GLSL version: "+drawable.getGL().glGetString(GL3.GL_SHADING_LANGUAGE_VERSION));
 		glUtil = new GL3Util(new DebugGL3((GL3)drawable.getGL()), assets);
 		
-		animator = new AnimatorDesktop(Engine.getDefaultFPS(), drawable);
+		animator = new AnimatorDesktop(Engine.getDefaultTickRate(), drawable);
 		SpriteLib sprites = new SpriteLib(glUtil, assets);
 		
 		KeyboardHandler keyboard = new KeyboardHandlerDesktop(f);

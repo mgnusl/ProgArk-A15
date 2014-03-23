@@ -2,6 +2,7 @@ package com.devikaas.monoball.ingame.model;
 
 import owg.engine.graphics.ColorF;
 import owg.engine.graphics.ColorF.ColorFMutable;
+import owg.engine.util.Kryo;
 import owg.engine.util.V3F;
 /**The in-game camera. Defines the visible area of the game world.*/
 public class CameraModel implements Steppable {
@@ -14,6 +15,11 @@ public class CameraModel implements Steppable {
 
     private static final float MARGIN = 200;
 	
+    @Kryo
+    private CameraModel() {
+		ballGameModel=null;
+	}
+    
 	public CameraModel(BallGameModel ballGameModel, V3F location, float width, float height) {
 		this.location = location;
 		this.viewWidth = width;

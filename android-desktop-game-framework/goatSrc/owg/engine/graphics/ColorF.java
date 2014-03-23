@@ -70,6 +70,10 @@ public class ColorF {
 		/**A public view of the 4-element backing array for the color.*/
 		public final float[] c = data;
 		
+		public ColorFMutable() {
+			super();
+		}
+		
 		public ColorFMutable(float[] color) {
 			super(color);
 		}
@@ -165,6 +169,10 @@ public class ColorF {
 	}
 	public ColorF(byte r, byte g, byte b, byte a) {
 		data = new float[]{(r&0xFF)/255f,(g&0xFF)/255f,(b&0xFF)/255f,(a&0xFF)/255f};
+	}
+	
+	public ColorF() {
+		data = new float[4];
 	}
 	
 	public float getRed() {

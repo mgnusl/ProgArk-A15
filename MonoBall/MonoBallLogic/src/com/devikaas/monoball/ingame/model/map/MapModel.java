@@ -6,6 +6,7 @@ import com.devikaas.monoball.ingame.model.BallGameModel;
 import com.devikaas.monoball.ingame.model.Steppable;
 
 import owg.engine.util.Calc;
+import owg.engine.util.Kryo;
 import owg.engine.util.V3F;
 
 public class MapModel implements Steppable {
@@ -23,6 +24,11 @@ public class MapModel implements Steppable {
 	private final MapGenerator generator;
 	/**The edges of the map, used to prevent objects from leaving the game area.*/
 	private final SolidLine leftEdge, rightEdge;
+	
+	@Kryo
+	private MapModel() {
+		ballGameModel=null;generator=null;rows=null;rightEdge=null;leftEdge=null;
+	}
 	
 	/**Create a new, empty map model.
 	 * The generator will be queried lazily to spawn the map.*/

@@ -36,8 +36,11 @@ public class Engine {
     // Path to root folder
     private static String root;
 	
-	public static int getDefaultFPS() {
+	public static int getDefaultTickRate() {
 		return 30;
+	}
+	public static boolean useVariableFrameRate() {
+		return true;
 	}
     
 	/**Call to initialize the engine for the given platform

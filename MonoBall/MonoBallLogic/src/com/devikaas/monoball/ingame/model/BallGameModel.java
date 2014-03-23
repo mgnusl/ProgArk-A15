@@ -2,6 +2,7 @@ package com.devikaas.monoball.ingame.model;
 
 import owg.engine.Engine;
 import owg.engine.util.Alarm;
+import owg.engine.util.Kryo;
 import owg.engine.util.V3F;
 
 import com.devikaas.monoball.ingame.model.map.CollidableList;
@@ -32,8 +33,11 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
     private final int playerTime;
     private Alarm alarm;
 
-
-	public BallGameModel() {
+    @Kryo
+	private BallGameModel(){
+    	playerTime=0;mapModel=null;gravity=null;collisionHandler=null;cameraModel=null;ballModel=null;
+    	}
+	public BallGameModel(Player one, Player two) {
 		final float w = MapModel.MAP_WIDTH;
 		final float h = (w*16)/9;
 		cameraModel = new CameraModel(this, new V3F(MapModel.MAP_X, -h/2f, 0), w, h);
@@ -47,6 +51,9 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
 		
 		cameraModel.setVerticalSpeed(1f);
         playerTime = PLAYER_TIME_LIMIT*Engine.scene().getAnimator().getUpdateFPSFrames();
+        
+        playerOneModel = one;
+        playerTwoModel = two;
 	}
 	/**Returns the game camera model. 
 	 * This camera defines the borders where a player will lose a life if they fall outside.*/
@@ -113,14 +120,6 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
     @Override
     public void alarm(int index) {
         switchPlayer();
-    }
-
-    public void addPlayer(Player p) {
-        if (playerOneModel == null)
-            playerOneModel = p;
-
-        else
-            playerTwoModel = p;
     }
 
 	public int getPlayerTime(){

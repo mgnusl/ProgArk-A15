@@ -6,6 +6,7 @@ import com.devikaas.monoball.ingame.model.map.Row;
 import com.devikaas.monoball.ingame.model.map.SolidLine;
 import owg.engine.Engine;
 import owg.engine.graphics.SpriteLib;
+import owg.engine.util.Kryo;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,11 @@ public class SpriteSwapBlock extends BasicBlock{
 
     private static String[] sprites = null;
     private boolean hasChanged = false;
+
+    @Kryo
+    private SpriteSwapBlock() {
+        super();
+    }
 
     public SpriteSwapBlock(Row row, float xOffset, float width){
         super(row, xOffset, width);

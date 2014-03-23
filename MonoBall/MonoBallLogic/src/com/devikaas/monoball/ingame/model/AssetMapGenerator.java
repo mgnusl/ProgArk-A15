@@ -1,7 +1,9 @@
 package com.devikaas.monoball.ingame.model;
 
 import com.devikaas.monoball.ingame.model.map.*;
+
 import owg.engine.Engine;
+import owg.engine.util.Kryo;
 import owg.engine.util.NamedInputStream;
 
 import java.io.BufferedReader;
@@ -18,7 +20,10 @@ public class AssetMapGenerator implements MapGenerator {
 
     private String[][] cachedChunks;
     private String[] availableChunks;
-
+    
+    @Kryo
+    private AssetMapGenerator() { 
+	}
     public AssetMapGenerator(int seed) {
         random = new Random(seed);
         availableChunks = Engine.assets().listAssets(PATH);

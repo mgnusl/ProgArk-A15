@@ -14,6 +14,10 @@ public class Alarm {
 	public final int[] alarm;
 	public final AlarmTriggerable target;
 	
+	@Kryo
+	private Alarm() {
+		target=null;alarm=null;
+	}
 	public Alarm(int length, AlarmTriggerable t) {
 		alarm = new int[length];
 		target = t;
