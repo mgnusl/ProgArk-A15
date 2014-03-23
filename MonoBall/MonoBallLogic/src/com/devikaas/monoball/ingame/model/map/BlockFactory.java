@@ -3,6 +3,7 @@ package com.devikaas.monoball.ingame.model.map;
 import com.devikaas.monoball.ingame.model.map.blocks.BasicBlock;
 import com.devikaas.monoball.ingame.model.map.blocks.DeathBlock;
 import com.devikaas.monoball.ingame.model.map.blocks.FakeBlock;
+import com.devikaas.monoball.ingame.model.map.blocks.StickyBlock;
 
 public class BlockFactory {
     public static final int BLOCKS_PER_LINE = 16;
@@ -17,7 +18,10 @@ public class BlockFactory {
 			new DeathBlock(r, offset*blockWidth, blockWidth);
 		}else if(type == 'f'){
 			new FakeBlock(r, offset*blockWidth, blockWidth);
-		}
+		}else if(type == 'x'){
+            new StickyBlock(r, offset*blockWidth, blockWidth);
+        }
+
 		// TODO: MORE BLOCKS!!!
 
 
