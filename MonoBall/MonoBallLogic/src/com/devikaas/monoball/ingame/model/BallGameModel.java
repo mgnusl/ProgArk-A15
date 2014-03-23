@@ -50,10 +50,15 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
 		collisionHandler.addCollidable(ballModel);
 		
 		cameraModel.setVerticalSpeed(1f);
-        playerTime = PLAYER_TIME_LIMIT*Engine.scene().getAnimator().getUpdateFPSFrames();
+        playerTime = PLAYER_TIME_LIMIT*Engine.getDefaultTickRate();
         
         playerOneModel = one;
         playerTwoModel = two;
+
+		running = true;
+
+		alarm = new Alarm(1, this);
+		alarm.set(PLAYER_ALARM_INDEX, playerTime);
 	}
 	/**Returns the game camera model. 
 	 * This camera defines the borders where a player will lose a life if they fall outside.*/
@@ -114,7 +119,6 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
         alarm.set(PLAYER_ALARM_INDEX, playerTime);
 
         reverse();
-
     }
 
     @Override

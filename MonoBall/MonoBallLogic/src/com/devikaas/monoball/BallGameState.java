@@ -36,7 +36,7 @@ public class BallGameState implements GameState {
 		Player one = new Player(model, "Arne");
         Player two = new Player(model, "Paul");
 		BallGameModel m = new BallGameModel(one, two);
-        m.setGameRunning(true);
+        //m.setGameRunning(true);
         
         setModel(m);
         kryoSerializer = new Kryo();
