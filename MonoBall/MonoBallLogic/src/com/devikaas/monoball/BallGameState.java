@@ -1,7 +1,9 @@
 package com.devikaas.monoball;
 
 import com.devikaas.monoball.ingame.controller.Controller;
+import com.devikaas.monoball.ingame.controller.InputController;
 import com.devikaas.monoball.ingame.controller.KeyboardController;
+import com.devikaas.monoball.ingame.controller.ReplayController;
 import com.devikaas.monoball.ingame.controller.SystemKeyController;
 import com.devikaas.monoball.ingame.controller.TouchController;
 import com.devikaas.monoball.ingame.model.BallGameModel;
@@ -18,7 +20,7 @@ public class BallGameState implements GameState {
 	BallGameModel model;
 	BallGameView view;
     List<Controller> controllers = new ArrayList<>();
-
+    InputController inputController = InputController.getInstance();
     Player playerOne;
 	
 	public BallGameState() {
@@ -26,9 +28,11 @@ public class BallGameState implements GameState {
 		view = new BallGameView(model);
 
         // Add all controllers
-        controllers.add(new TouchController(model));
-        controllers.add(new KeyboardController(model));
-        controllers.add(new SystemKeyController());
+        inputController.setGameModel(model);
+        inputController.registerController(new TouchController());
+        inputController.registerController(new SystemKeyController());
+        inputController.registerController(new KeyboardController());
+        //inputController.registerController(new ReplayController(""));
 
         Player one = new Player(model, "Arne");
         Player two = new Player(model, "Paul");
@@ -43,10 +47,7 @@ public class BallGameState implements GameState {
 	public void step() {
         // Reset model X-celeration
         model.setX(0);
-
-        for (Controller c : controllers) {
-            c.step();
-        }
+        inputController.step();
 
         model.step();
 	}

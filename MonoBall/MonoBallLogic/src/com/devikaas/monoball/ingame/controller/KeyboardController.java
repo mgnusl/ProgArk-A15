@@ -9,18 +9,26 @@ import owg.engine.input.VirtualKey;
  * Created by bvx89 on 18/03/14.
  */
 public class KeyboardController implements Controller {
-    public BallGameModel mBallGameModel;
 
-    public KeyboardController(BallGameModel ballGameModel) {
-        mBallGameModel = ballGameModel;
+    InputController inputController = InputController.getInstance();
+    public KeyboardController() {
+    }
+
+    public interface Command extends Runnable {
+
     }
 
     @Override
     public void step() {
-        if(Engine.keyboard().isDown(VirtualKey.VK_LEFT))//TODO controller
-            mBallGameModel.setX(-1f);
+        float x = 0;
+        if(Engine.keyboard().isDown(VirtualKey.VK_LEFT)) {
+           x = -1f;
+          inputController.moveBall(x);
+        }
+
         if(Engine.keyboard().isDown(VirtualKey.VK_RIGHT)) {
-            mBallGameModel.setX(1f);
+           x = 1f;
+           inputController.moveBall(x);
         }
     }
 }
