@@ -24,7 +24,7 @@ public class HUDView implements Renderable {
 	public void render(float alpha) {
         // Get steps left for player
         int stepsLeft = model.getAlarm().get(BallGameModel.PLAYER_ALARM_INDEX);
-        int secondsLeft = stepsLeft/Engine.scene().getAnimator().getUpdateFPSFrames();
+        int secondsLeft = stepsLeft/Engine.getDefaultTickRate();
 
         CameraModel cam = model.getCamera();
 
