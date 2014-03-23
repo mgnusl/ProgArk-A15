@@ -1,7 +1,5 @@
 package owg.engine.audio;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -115,52 +113,6 @@ public abstract class AudioLib
 			System.out.println("All audio clips loaded, continuing. ");
 	}
 
-	/**Load the given directory into the hashmap in a different thread.
-	 * @param dirName The directory name relative to the jar file, bat file or project folder.
-	 * @param l A listener to be notified when all sounds have been loaded.
-	 * Please be aware that this call will come from the loader thread.
-	 * If null, no action events will be fired.
-	 */
-	public final void loadDirAsync(final AssetProducer assets, final String dirName, final ActionListener l)
-	{
-		System.out.print("Load sound dir asynchronous: "+dirName+
-				" ... # loader threads is now: "+numLoaderThreads.incrementAndGet()+"... ");
-
-		final String[] fileNames = assets.listAssets(dirName);
-		if(fileNames != null)
-		{
-			Thread t = new Thread() 
-			{	
-				@Override
-				public void run()
-				{
-					for (String file : fileNames)
-					{
-						if(file.toLowerCase(Locale.ENGLISH).endsWith(".ogg") || file.toLowerCase(Locale.ENGLISH).endsWith(".wav"))
-							try {
-								load(assets, dirName+'/'+file, file);
-							} catch (IOException e) {
-								System.err.println("Could not load "+file+"... ");
-								e.printStackTrace();
-							}
-					}
-					if(l != null)
-						l.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, dirName));
-
-					System.out.println("... done. # loader threads is now: "+numLoaderThreads.decrementAndGet());
-					synchronized (numLoaderThreads)
-					{
-						numLoaderThreads.notifyAll();
-					}
-				}
-			};
-			t.start();
-		}
-		else 
-		{
-			System.err.println(dirName +" is not a directory!");
-		}
-	}
 
 	/**Load the given directory into the hashmap.
 	 * @return An array of strings used to address the loaded sounds in the hashmap. Will never be null.*/
