@@ -18,7 +18,7 @@ public class CameraView implements Renderable {
 	
 	@Override
 	public void render() {
-		float myAspect = (float)model.getWidth()/model.getHeight();
+		float myAspect = model.getWidth()/model.getHeight();
 		float screenAspect = (float)Engine.scene().getWidth()/Engine.scene().getHeight();
 		int vx, vy, vw, vh;
 		

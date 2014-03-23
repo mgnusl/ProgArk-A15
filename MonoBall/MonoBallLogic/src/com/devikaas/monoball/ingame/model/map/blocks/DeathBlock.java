@@ -7,7 +7,8 @@ import com.devikaas.monoball.ingame.model.map.Collidable;
 /**
  * Created by oknak_000 on 3/18/14.
  */
-public class DeathBlock extends BasicBlock{
+public class DeathBlock extends BasicBlock {
+    public final static char TYPE = 's';
 	public DeathBlock(Row row, float xOffset, float width){
 		super(row, xOffset, width);
 	}
@@ -19,30 +20,22 @@ public class DeathBlock extends BasicBlock{
 
 	@Override
 	public void evaluateSurface(Collidable subject) {
-		BallModel ball = null;
-
-		for(SolidLine l : lines){
-			if(l.evaluateLine(subject) && subject instanceof BallModel){
-				ball = (BallModel)subject;
-			}
-		}
-
-		if(ball != null)
-			ball.kill();
+		evaluateEndpoints(subject);
 	}
 
 	@Override
 	public void evaluateEndpoints(Collidable subject) {
-		BallModel ball = null;
-		
-		for(SolidLine l : lines){
-			if(l.evaluateEndpoints(subject) && subject instanceof BallModel){
-				ball = (BallModel)subject;
-			}
-		}
+		// verify subject is ball
+        if (subject instanceof BallModel) {
+            BallModel ball = (BallModel)subject;
 
-		if(ball != null)
-			ball.kill();
+            // Check for collisions
+            for(SolidLine l : lines){
+                if(l.evaluateEndpoints(subject)) {
+                    ball.kill();
+                }
+            }
+        }
 	}
 
 }

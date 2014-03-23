@@ -12,6 +12,7 @@ import com.devikaas.monoball.ingame.model.map.Collidable;
  * This way it will act as a trap/shortcut block
  */
 public class FakeBlock extends BasicBlock {
+    public static final char TYPE = 'f';
 	public FakeBlock(Row row, float xOffset, float width){
 		super(row, xOffset, width);
 	}

@@ -9,6 +9,7 @@ import com.devikaas.monoball.ingame.model.map.Collidable;
 public class BallModel implements SpriteModel, Collidable, Steppable {
 	public static final float FRICTION = 0.25f;
     public static final float AIR_FRICTION = 0.01f;
+    public static final String DEFAULT_SPRITE = "ball";
 
 	private final BallGameModel model;
 	
@@ -20,6 +21,8 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 
 	private final V3F speed;
 
+    private String sprite;
+
 	public BallModel(BallGameModel model, V3F location, float radius) {
 		this.model = model;
 		this.location = location;
@@ -27,12 +30,19 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 		this.radius = radius;
 		this.angle = 0;
 		this.angleSp = 0;
+
+        sprite = DEFAULT_SPRITE;
 	}
 	
 	@Override
 	public String getSprite() {
-		return "ball";
+		return sprite;
 	}
+
+    public void setSprite(String sprite) {
+        if (!sprite.isEmpty())
+            this.sprite = sprite;
+    }
 
 	@Override
 	public int getSubimage() {

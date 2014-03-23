@@ -11,6 +11,7 @@ import com.devikaas.monoball.ingame.model.map.SolidLine;
 
 public class BasicBlock implements Block, SpriteModel {
 	public final static float FRICTION = 1;
+    public final static char TYPE = 'a';
 	
 	private V3F topLeft;
 	private float width, height;
@@ -37,7 +38,7 @@ public class BasicBlock implements Block, SpriteModel {
 	
 	@Override
 	public String getSprite() {
-		return "brickBlock";
+		return "brickyBlock";
 	}
 
 	@Override
