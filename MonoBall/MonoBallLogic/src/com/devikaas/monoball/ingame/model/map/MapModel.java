@@ -80,14 +80,26 @@ public class MapModel implements Steppable {
 	}
 	@Override
 	public void step() {
+        // Get cam position
+        float camY = ballGameModel.getCamera().getCurrentLocation().y();
+        float camHeight = ballGameModel.getCamera().getHeight();
+
 		//Move the edge lines to match the camera y-position
-		leftEdge.getLocation().y(ballGameModel.getCamera().getCurrentLocation().y()+ballGameModel.getCamera().getHeight());
-		rightEdge.getLocation().y(ballGameModel.getCamera().getCurrentLocation().y());
+		leftEdge.getLocation().y(camY + camHeight);
+		rightEdge.getLocation().y(camY);
 		
-		while(ballGameModel.getCamera().getCurrentLocation().y() < getMinimumGeneratedY())
+		while(camY < getMinimumGeneratedY())
 			generator.generateChunk(this, false);
-		while(ballGameModel.getCamera().getCurrentLocation().y()+ballGameModel.getCamera().getHeight() > getMaximumGeneratedY())
+		while(camY + camHeight > getMaximumGeneratedY())
 			generator.generateChunk(this, true);
+
+        for (Row r : getAccessibleRows(camY, camHeight)) {
+            for (Block b : r.getBlocks()) {
+                if (b instanceof Steppable) {
+                    ((Steppable) b).step();
+                }
+            }
+        }
 	}
 	/**Returns the y-position of the upper edge of the uppermost generated row in world space.*/
 	private float getMinimumGeneratedY() {
