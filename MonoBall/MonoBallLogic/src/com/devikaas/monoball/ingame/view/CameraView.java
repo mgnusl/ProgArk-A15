@@ -19,8 +19,13 @@ public class CameraView implements Renderable {
 	}
 	
 	@Override
+<<<<<<< HEAD
 	public void render(float alpha) {
 		float myAspect = (float)model.getWidth()/model.getHeight();
+=======
+	public void render() {
+		float myAspect = model.getWidth()/model.getHeight();
+>>>>>>> branch 'master' of https://oddwarg@github.com/mgnusl/ProgArk-A15.git
 		float screenAspect = (float)Engine.scene().getWidth()/Engine.scene().getHeight();
 		int vx, vy, vw, vh;
 		

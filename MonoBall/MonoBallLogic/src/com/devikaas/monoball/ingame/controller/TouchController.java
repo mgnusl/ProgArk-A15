@@ -16,7 +16,7 @@ public class TouchController implements Controller {
             int width = Engine.scene().getWidth();
             float normalSpeed = (-1+2*Engine.pointer().getLastPointerX()/width);
 
-           // inputController.moveBall(normalSpeed);
+            inputController.moveBall(normalSpeed);
 
         }
     }

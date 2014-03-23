@@ -3,6 +3,7 @@ package com.devikaas.monoball.ingame.model.map;
 import com.devikaas.monoball.ingame.model.map.blocks.BasicBlock;
 import com.devikaas.monoball.ingame.model.map.blocks.DeathBlock;
 import com.devikaas.monoball.ingame.model.map.blocks.FakeBlock;
+import com.devikaas.monoball.ingame.model.map.blocks.SpriteSwapBlock;
 import com.devikaas.monoball.ingame.model.map.blocks.StickyBlock;
 
 public class BlockFactory {
@@ -11,19 +12,22 @@ public class BlockFactory {
 
     public static void createBlock(Row r, int offset, char type) {
     	float blockWidth = (float)MapModel.MAP_WIDTH/BLOCKS_PER_LINE;
-    	
-        if(type == 'a'){
-			new BasicBlock(r, offset*blockWidth, blockWidth);
-		}else if(type == 's'){
-			new DeathBlock(r, offset*blockWidth, blockWidth);
-		}else if(type == 'f'){
-			new FakeBlock(r, offset*blockWidth, blockWidth);
-		}else if(type == 'x'){
-            new StickyBlock(r, offset*blockWidth, blockWidth);
-        }
 
-		// TODO: MORE BLOCKS!!!
-
-
+        switch(type){
+            case BasicBlock.TYPE:
+                new BasicBlock(r, offset*blockWidth, blockWidth);
+                break;
+            case DeathBlock.TYPE:
+                new DeathBlock(r, offset*blockWidth, blockWidth);
+                break;
+            case FakeBlock.TYPE:
+                new FakeBlock(r, offset*blockWidth, blockWidth);
+                break;
+            case SpriteSwapBlock.TYPE:
+                new SpriteSwapBlock(r, offset*blockWidth, blockWidth);
+                break;
+            case StickyBlock.TYPE:
+                new StickyBlock(r, offset*blockWidth, blockWidth);
+		}
     }
 }

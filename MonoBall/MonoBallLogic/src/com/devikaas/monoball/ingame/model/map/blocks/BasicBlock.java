@@ -11,6 +11,7 @@ import com.devikaas.monoball.ingame.model.map.Row;
 import com.devikaas.monoball.ingame.model.map.SolidLine;
 
 public class BasicBlock implements Block, SpriteModel {
+    public final static char TYPE = 'a';
     private float friction;
 	
 	private V3F topLeft;
