@@ -26,7 +26,17 @@ public class DeathBlock extends BasicBlock {
 
 	@Override
 	public void evaluateSurface(Collidable subject) {
-		evaluateEndpoints(subject);
+		// verify subject is ball
+		if (subject instanceof BallModel) {
+			BallModel ball = (BallModel)subject;
+
+			// Check for collisions
+			for(SolidLine l : lines){
+				if(l.evaluateLine(subject)) {
+					ball.kill();
+				}
+			}
+		}
 	}
 
 	@Override
