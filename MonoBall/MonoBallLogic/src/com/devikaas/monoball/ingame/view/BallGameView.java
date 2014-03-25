@@ -45,7 +45,7 @@ public class BallGameView {
 
 		for(int i=0; i<6; i++){
 			BG.render(0,
-					new V3F(0, bgy + i * ar * BG.getHeight(), 0),
+					new V3F(0, bgy + i * aspectRatio * BG.getHeight(), 0),
 					Compass.NORTHWEST,
 					aspectRatio,
 					aspectRatio,
