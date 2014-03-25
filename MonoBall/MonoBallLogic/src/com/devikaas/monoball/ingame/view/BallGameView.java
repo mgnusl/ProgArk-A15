@@ -37,20 +37,20 @@ public class BallGameView {
 
 		float camy = model.getCamera().getInterpolatedLocation(alpha).y();
 
+		//Draws tiling background
 		Sprite2D BG = sprites().get("background");
-		float bgy = (float)Calc.cyclic(camy * 0.2f, camy-model.getCamera().getHeight(), camy);
+		float aspectRatio = model.getCamera().getWidth() / BG.getWidth();
 
-		BG.render(0,
-				new V3F(0, bgy, 0),
-				Compass.NORTHWEST,
-				model.getCamera().getWidth() / BG.getWidth(),
-				model.getCamera().getHeight() / BG.getHeight(),
-				0);
-		BG.render(0,
-				new V3F(0, model.getCamera().getHeight()+bgy, 0),
-				Compass.NORTHWEST, model.getCamera().getWidth() / BG.getWidth(),
-				model.getCamera().getHeight() / BG.getHeight(),
-				0);
+		float bgy = (float)Calc.cyclic(camy * 0.2f, camy - aspectRatio * BG.getHeight(), camy);
+
+		for(int i=0; i<6; i++){
+			BG.render(0,
+					new V3F(0, bgy + i * ar * BG.getHeight(), 0),
+					Compass.NORTHWEST,
+					aspectRatio,
+					aspectRatio,
+					0);
+		}
 
 		new SpriteView(model.getBall()).render(alpha);
 		map.render(alpha);
