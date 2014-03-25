@@ -90,7 +90,7 @@ public class MenuGameState implements GameState {
 
 
         // Get references to sprites
-        backgroundTile = sprites().get("backgroundSmallTile");
+        backgroundTile = sprites().get("background");
         logo = sprites().get("logo");
         quit = sprites().get("quit");
         play = sprites().get("play");
