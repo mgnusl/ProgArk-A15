@@ -1,5 +1,6 @@
 package com.devikaas.monoball.ingame.model;
 
+import com.devikaas.monoball.GameOverState;
 import owg.engine.Engine;
 import owg.engine.util.Alarm;
 import owg.engine.util.Kryo;
@@ -111,6 +112,21 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
     public void setGameRunning(boolean state) {
         if (!running) switchPlayer();
         running = state;
+    }
+
+    public void killPlayer(){
+        if (currentPlayerOne)
+            playerOneModel.subtractLives(1);
+        else
+            playerTwoModel.subtractLives(1);
+
+        //Check if game is over
+        if(playerOneModel.getLives() <=0 || playerTwoModel.getLives() <=0){
+            Engine.scene().setState(new GameOverState(playerOneModel,playerTwoModel));
+        }else{
+
+            switchPlayer();
+        }
     }
 
     public void switchPlayer() {

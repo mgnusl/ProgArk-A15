@@ -139,7 +139,7 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 
 		//If player has been alive less than 0.5 seconds, he is invulnerable
 		if(time > 0.5)
-			model.switchPlayer();
+            model.killPlayer();
 	}
 
 
