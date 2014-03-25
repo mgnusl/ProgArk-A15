@@ -5,6 +5,7 @@ import com.devikaas.monoball.ingame.model.Player;
 
 import owg.engine.Engine;
 import owg.engine.graphics.SpriteFontRenderer;
+import owg.engine.util.Compass;
 import owg.engine.util.V3F;
 
 import com.devikaas.monoball.ingame.model.BallGameModel;
@@ -29,11 +30,21 @@ public class HUDView implements Renderable {
         CameraModel cam = model.getCamera();
 
         V3F camLoc = cam.getInterpolatedLocation(alpha);
-        font.render("Time:\n" + secondsLeft, 0, camLoc.y());
 
-        Player p = model.getCurrentPlayer();
-        String playerInfo = p.getName() +"\n"+ p.getScore();
-        font.render(playerInfo, cam.getWidth()/2, camLoc.y());
+		if(!model.isReversed()){
+        	font.render("Time:\n" + secondsLeft, 0, camLoc.y());
+
+			Player p = model.getCurrentPlayer();
+			String playerInfo = p.getName() +"\n"+ p.getScore();
+			font.render(playerInfo, cam.getWidth(), camLoc.y(),Compass.NORTHEAST, 1, 1, 0);
+		}else{
+			font.render("Time:\n" + secondsLeft, cam.getWidth(), camLoc.y() + cam.getHeight(), Compass.NORTHWEST, 1, 1, (float)Math.PI);
+			Player p = model.getCurrentPlayer();
+			String playerInfo = p.getName() +"\n"+ p.getScore();
+			font.render(playerInfo, 0, camLoc.y() + cam.getHeight(), Compass.NORTHEAST, 1, 1, (float)Math.PI);
+		}
+
+
 	}
 
 }
