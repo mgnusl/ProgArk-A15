@@ -37,7 +37,7 @@ public class BallGameView {
 
 		float camy = model.getCamera().getInterpolatedLocation(alpha).y();
 
-		Sprite2D BG = sprites().get("backgroundTile");
+		Sprite2D BG = sprites().get("backgroundSmallTile");
 		float bgy = (float)Calc.cyclic(camy * 0.2f, camy-model.getCamera().getHeight(), camy);
 
 		BG.render(0,

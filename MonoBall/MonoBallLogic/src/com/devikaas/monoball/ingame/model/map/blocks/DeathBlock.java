@@ -21,7 +21,7 @@ public class DeathBlock extends BasicBlock {
 
 	@Override
 	public String getSprite(){
-		return "deathBlock";
+		return "doubleSpikeBlock";
 	}
 
 	@Override
