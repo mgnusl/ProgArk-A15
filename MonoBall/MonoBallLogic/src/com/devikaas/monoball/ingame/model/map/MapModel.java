@@ -64,8 +64,14 @@ public class MapModel implements Steppable {
 		
 		int minIndex = Calc.clamp((int)(minY/Row.ROW_HEIGHT), 0, rows.size());
 		int maxIndex = Calc.clamp(1+(int)(maxY/Row.ROW_HEIGHT), 0, rows.size());
-		
-		Row[] r = new Row[maxIndex-minIndex];
+
+        Row[] r;
+        if (maxIndex-minIndex < 0) {
+            r = new Row[0];
+        } else {
+            r = new Row[maxIndex - minIndex];
+        }
+
 		rows.subList(minIndex, maxIndex).toArray(r);
 		return r;
 	}
