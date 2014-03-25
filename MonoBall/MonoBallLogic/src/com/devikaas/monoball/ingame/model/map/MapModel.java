@@ -58,6 +58,7 @@ public class MapModel implements Steppable {
 	
 	/**Returns all rows that might be accessible given the indicated minimum and maximum y coordinates in world space.*/
 	public Row[] getAccessibleRows(float minY, float maxY) {
+
 		//Transpose the coordinates down to be in line with the row list
 		minY += Row.ROW_HEIGHT*originIndex;
 		maxY += Row.ROW_HEIGHT*originIndex;
@@ -68,6 +69,7 @@ public class MapModel implements Steppable {
         Row[] r;
         if (maxIndex-minIndex < 0) {
             r = new Row[0];
+            System.out.println("max: " + maxIndex + ", min: " + minIndex);
         } else {
             r = new Row[maxIndex - minIndex];
         }
@@ -99,7 +101,7 @@ public class MapModel implements Steppable {
 		while(camY + camHeight > getMaximumGeneratedY())
 			generator.generateChunk(this, true);
 
-        for (Row r : getAccessibleRows(camY, camHeight)) {
+        for (Row r : getAccessibleRows(camY, camY + camHeight)) {
             for (Block b : r.getBlocks()) {
                 if (b instanceof Steppable) {
                     ((Steppable) b).step();

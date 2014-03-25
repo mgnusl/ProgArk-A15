@@ -7,7 +7,7 @@ import com.devikaas.monoball.ingame.model.map.blocks.SpriteSwapBlock;
 import com.devikaas.monoball.ingame.model.map.blocks.StickyBlock;
 
 public class BlockFactory {
-    public static final int BLOCKS_PER_LINE = 16;
+    public static final int BLOCKS_PER_LINE = 12;
 
 
     public static Block createBlock(Row r, int offset, char type) {
