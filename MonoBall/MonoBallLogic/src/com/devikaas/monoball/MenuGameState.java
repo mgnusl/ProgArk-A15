@@ -42,6 +42,16 @@ public class MenuGameState implements GameState {
 	private V3F playSize;
 	private V3F quitSize;
 
+
+    // Reference to sprites
+    private Sprite2D backgroundTile;
+    private Sprite2D logo;
+    private Sprite2D play;
+    private Sprite2D quit;
+
+    private int bgReplicates;
+
+
 	
 	//Position of mouse/touch pointer in view
 	private V3F viewSpacePointer;
@@ -77,6 +87,17 @@ public class MenuGameState implements GameState {
 		//Sets position of quit button below play button
 		quitPos = new V3F(playPos.x(), playPos.y() + playSize.y()*1.1f, 0);
 		quitSize = playSize;
+
+
+        // Get references to sprites
+        backgroundTile = sprites().get("backgroundSmallTile");
+        logo = sprites().get("logo");
+        quit = sprites().get("quit");
+        play = sprites().get("play");
+
+        bgReplicates = (int)Math.ceil(viewHeight / (viewWidth / backgroundTile.getWidth() * backgroundTile.getHeight()));
+        System.out.println("Bg replicates:" + bgReplicates);
+
 	}
     @Override
     public void step() {
@@ -125,7 +146,7 @@ public class MenuGameState implements GameState {
     	//Routine work that should be done at beginning of each render, for example in the camera view:
     	
     	//Clear the screen
-        glUtil().clearScreen(ColorF.GREEN);
+        glUtil().clearScreen(ColorF.BLACK);
         
         //Set an orthographic projection
         MatrixStack projection = glUtil().projectionMatrix();
@@ -139,14 +160,21 @@ public class MenuGameState implements GameState {
 
 		glUtil().setColor(ColorF.WHITE);
 
-		//Draws Background
-		Sprite2D bg = sprites().get("background");
-		bg.render(0, new V3F(0, 0, 0), Compass.NORTHWEST, viewWidth / bg.getWidth(), viewHeight / bg.getHeight(), 0);
+        float aspect = viewWidth / backgroundTile.getWidth();
+        for (int i = 0; i < bgReplicates; i++) {
+            backgroundTile.render(0,
+                    new V3F(0, i * (backgroundTile.getHeight() * aspect), 0),
+                    Compass.NORTHWEST,
+                    aspect,
+                    aspect,
+                    0);
+        }
+
 
 		//Draws play and quit buttons
-		sprites().get("play").render(0, playPos, Compass.CENTER, imageScale, imageScale, 0);
-		sprites().get("quit").render(0, quitPos, Compass.CENTER, imageScale, imageScale,0);
+		play.render(0, playPos, Compass.CENTER, imageScale, imageScale, 0);
+		quit.render(0, quitPos, Compass.CENTER, imageScale, imageScale,0);
 		//Draws logo
-		sprites().get("logo").render(0, new V3F(viewWidth / 2, viewHeight / 6, 0), Compass.CENTER, logoScale , logoScale, logoRotation);
+		logo.render(0, new V3F(viewWidth / 2, viewHeight / 6, 0), Compass.CENTER, logoScale , logoScale, logoRotation);
     }
 }
