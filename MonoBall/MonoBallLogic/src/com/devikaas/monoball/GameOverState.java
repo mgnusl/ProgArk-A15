@@ -25,25 +25,15 @@ public class GameOverState implements GameState {
 
     //Scales of buttons and logo
     private float imageScale;
-    private float logoScale;
 
-
-    // Used to dynamically rotate logo.
+    // Used to dynamically rotate result.
     private float resultRotation = 0.0f;
-    private float logoRotationSpeed = 0.015f;
-    private float logoMaxAngle = 0.1f;
-
-    // Used to dynamically scale logo. logoMinScale will be set according to logoMaxScale.
-    // logoMaxScale will be changed to accomodate actual logoScale
-    private float logoMinScale;
-    private float logoMaxScale = 0.12f;
-    private float logoScaleSpeed = 0.0011f;
+    private float resultRotationSpeed = 0.015f;
+    private float resultMaxAngle = 0.1f;
 
     //Stores position and size of buttons, to allow easy interaction
     private V3F playPos;
-    private V3F quitPos;
     private V3F playSize;
-    private V3F quitSize;
 
 
     //Position of mouse/touch pointer in view
@@ -79,10 +69,10 @@ public class GameOverState implements GameState {
                 sprites().get("play").getHeight() * imageScale, 0);
 
         //Find result of game
-        if(player1.getScore() >= player2.getScore()){
+		if(player1.getScore() > player2.getScore()){
             result = "Player1 won!";
         }else if(player1.getScore() < player2.getScore()){
-            result = "Player2 wom!";
+            result = "Player2 won!";
         }else{
             result = "Tie!";
         }
@@ -91,10 +81,10 @@ public class GameOverState implements GameState {
     public void step() {
 
         // Turns rotation if outside of max or min values, and rotates logo
-        if(resultRotation > logoMaxAngle || resultRotation < - logoMaxAngle)
-            logoRotationSpeed = -logoRotationSpeed;
+        if(resultRotation > resultMaxAngle || resultRotation < - resultMaxAngle)
+            resultRotationSpeed = -resultRotationSpeed;
 
-        resultRotation += logoRotationSpeed;
+        resultRotation += resultRotationSpeed;
 
         //Example: fixed camera height, stretched to fit the screen with the correct aspect ratio
         viewSpacePointer.x(pointer().getLastPointerX()*(float)viewWidth/scene().getWidth());
