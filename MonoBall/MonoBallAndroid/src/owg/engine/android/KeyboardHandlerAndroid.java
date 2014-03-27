@@ -1,5 +1,6 @@
 package owg.engine.android;
 
+import java.security.Key;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -46,6 +47,11 @@ public class KeyboardHandlerAndroid extends KeyboardHandler implements OnKeyList
 	@Override
 	public synchronized boolean onKey(View v, int keyCode, KeyEvent event) {
 		inputQueue.offer(event);
+
+        // Let normal volume keys go through
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN || keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+            return false;
+        }
 		return true;
 	}
 	
