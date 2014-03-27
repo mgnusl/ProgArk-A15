@@ -12,19 +12,16 @@ import static owg.engine.Engine.glUtil;
 import static owg.engine.Engine.scene;
 import static owg.engine.Engine.sprites;
 
-/**
- * Created by oknak_000 on 3/27/14.
- */
 public class SplashState implements GameState {
 	private Sprite2D splash;
     private ColorF background = new ColorF(0x387a96, false);
 
-	private float viewLeft;
-	private float viewTop;
+	private float viewLeft = 0;
+	private float viewTop = 0;
 
 	private float viewWidth;
 	private float viewHeight;
-	private int wait = 5;
+	private boolean rendered = false;
 
 	public SplashState(){
 		float screenAspect = (float)scene().getWidth()/scene().getHeight();
@@ -32,14 +29,11 @@ public class SplashState implements GameState {
 		viewWidth = viewHeight*screenAspect;
 
 		splash = sprites().get("logo");
-		// Get references to sprites
-		//splash = sprites().get("splash");
 	}
 
 	@Override
 	public void step() {
-		wait--;
-		if(wait == 0){
+		if(rendered){
 			sprites().loadAssets();
 			Engine.scene().setState(new MenuGameState());
 		}
@@ -47,6 +41,7 @@ public class SplashState implements GameState {
 
 	@Override
 	public void render() {
+
 		glUtil().clearScreen(background);
 		MatrixStack projection = glUtil().projectionMatrix();
 		projection.identity();
@@ -65,5 +60,6 @@ public class SplashState implements GameState {
 				scale,
 				scale,
 				0);
+		rendered = true;
 	}
 }
