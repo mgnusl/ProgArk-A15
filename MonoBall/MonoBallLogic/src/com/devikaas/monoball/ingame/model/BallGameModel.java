@@ -50,7 +50,7 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
 		
 		collisionHandler.addCollidable(ballModel);
 		
-		cameraModel.setVerticalSpeed(1f);
+		//cameraModel.setVerticalSpeed(5f);
         playerTime = PLAYER_TIME_LIMIT*Engine.getDefaultTickRate();
         
         playerOneModel = one;
@@ -102,7 +102,7 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
             else
                 playerTwoModel.step();
 
-            alarm.step();
+           	alarm.step();
         }
 	}
 	public V3F getGravity() {
@@ -139,7 +139,7 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
 
     @Override
     public void alarm(int index) {
-        switchPlayer();
+        //switchPlayer();
     }
 
 	public int getPlayerTime(){
