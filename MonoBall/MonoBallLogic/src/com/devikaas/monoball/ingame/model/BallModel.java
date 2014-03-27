@@ -135,7 +135,9 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 	// Switches players, effectivly killing the current player
 	public void kill(){
 		//Gets the amount of time player has been alive.
-		float time = (float)model.getPlayerTimeLimit() - (float)model.getPlayerTimeLimit() / (float)model.getPlayerTime() * (float)model.getAlarm().get(0);
+		float time = (float)model.getPlayerTimeLimit() - (float)model.getPlayerTimeLimit() /
+                                                        (float)model.getPlayerTime() *
+                                                        (float)model.getAlarm().get(model.ALARM_PLAYTIME_INDEX);
 
 		//If player has been alive less than 0.5 seconds, he is invulnerable
 		if(time > 0.5)
