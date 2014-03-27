@@ -30,7 +30,7 @@ public class SplashState implements GameState {
 		viewHeight = 320;
 		viewWidth = viewHeight*screenAspect;
 
-		Sprite2D splash = sprites().get("logo");
+		splash = sprites().get("logo");
 		// Get references to sprites
 		//splash = sprites().get("splash");
 	}
@@ -65,9 +65,4 @@ public class SplashState implements GameState {
 				scale,
 				0);
 	}
-
-
-
-
-
 }
