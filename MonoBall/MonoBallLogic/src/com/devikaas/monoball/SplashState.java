@@ -23,7 +23,7 @@ public class SplashState implements GameState {
 
 	private float viewWidth;
 	private float viewHeight;
-	private int wait = 5;
+	private boolean rendered = false;
 
 	public SplashState(){
 		float screenAspect = (float)scene().getWidth()/scene().getHeight();
@@ -37,8 +37,7 @@ public class SplashState implements GameState {
 
 	@Override
 	public void step() {
-		wait--;
-		if(wait == 0){
+		if(rendered){
 			sprites().loadAssets();
 			Engine.scene().setState(new MenuGameState());
 		}
@@ -46,6 +45,7 @@ public class SplashState implements GameState {
 
 	@Override
 	public void render() {
+
 		glUtil().clearScreen(ColorF.BLACK);
 		MatrixStack projection = glUtil().projectionMatrix();
 		projection.identity();
@@ -64,5 +64,6 @@ public class SplashState implements GameState {
 				scale,
 				scale,
 				0);
+		rendered = true;
 	}
 }
