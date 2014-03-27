@@ -62,7 +62,5 @@ public class BallGameView {
 	/**Returns the maximum y value in game world space, that the current projection covers.*/
 	public float getVisibleRangeMaxY(float alpha) {
 		return model.getCamera().getInterpolatedLocation(alpha).y()+model.getCamera().getHeight();
-	}
-d;
     }
 }
