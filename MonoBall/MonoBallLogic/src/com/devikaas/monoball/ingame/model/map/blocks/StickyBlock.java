@@ -6,7 +6,7 @@ import owg.engine.util.Kryo;
 public class StickyBlock extends BasicBlock {
     private static final String SPRITE = "block-sticky";
 
-    public static final char TYPE = 'x';
+    public static final char TYPE = 's';
 
     @Kryo
     private StickyBlock() {

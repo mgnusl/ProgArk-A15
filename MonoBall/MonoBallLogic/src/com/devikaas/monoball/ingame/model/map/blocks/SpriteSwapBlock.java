@@ -11,7 +11,8 @@ import owg.engine.util.Kryo;
 import java.util.ArrayList;
 
 public class SpriteSwapBlock extends BasicBlock{
-    public static final char TYPE = 'k';
+    public static final char TYPE = 'c';
+    private static final int SCORE = 10;
 
     private static String[] sprites = null;
     private boolean hasChanged = false;
@@ -63,6 +64,8 @@ public class SpriteSwapBlock extends BasicBlock{
                         else
                             ball.setSprite(sprites[index-1]);
 
+                        ball.subtractScoreForActivePlayer(SCORE);
+
 
                         System.out.println("Surface: Sprite changed");
                         hasChanged = true;
@@ -78,5 +81,10 @@ public class SpriteSwapBlock extends BasicBlock{
         for(SolidLine l : lines){
             l.evaluateEndpoints(subject);
         }
+    }
+
+    @Override
+    public String getSprite() {
+        return "block-swap";
     }
 }

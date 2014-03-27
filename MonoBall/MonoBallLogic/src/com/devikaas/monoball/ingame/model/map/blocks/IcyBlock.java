@@ -10,7 +10,7 @@ import owg.engine.util.V3F;
 
 
 public class IcyBlock extends BasicBlock {
-    public static final char TYPE = 's';
+    public static final char TYPE = 'm';
     private static final float FRICTION = 0f;
     private static final String SPRITE = "block-ice";
 
