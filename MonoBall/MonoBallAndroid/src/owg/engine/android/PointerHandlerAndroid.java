@@ -56,10 +56,9 @@ public class PointerHandlerAndroid extends PointerHandler implements OnTouchList
                 numPointerButtonsDown = 0;
             }
 
-            if(event.getAction() != MotionEvent.ACTION_DOWN) {
-				lastPointerX = event.getX();
-				lastPointerY = event.getY();
-			}
+            lastPointerX = event.getX();
+            lastPointerY = event.getY();
+
 		}
 	}
 

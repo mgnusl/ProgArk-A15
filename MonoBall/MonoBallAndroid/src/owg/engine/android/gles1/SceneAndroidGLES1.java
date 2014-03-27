@@ -3,6 +3,7 @@ package owg.engine.android.gles1;
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Environment;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import owg.engine.AssetProducer;
@@ -22,6 +23,9 @@ public class SceneAndroidGLES1 extends Scene implements GLSurfaceView.Renderer {
 	private final boolean DEBUG = false;
     private GLSurfaceView canvas;
     private GLES1Util glUtil;
+
+    private long lastStepTime;
+    private Long vbrGameClock;
     
     public int getWidth() {
     	return canvas.getWidth();
@@ -34,8 +38,13 @@ public class SceneAndroidGLES1 extends Scene implements GLSurfaceView.Renderer {
     	super();
     	//Disable title bar
     	activity.requestWindowFeature(Window.FEATURE_NO_TITLE);
-    	activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    	activity.getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
     	
     	canvas = new GLSurfaceView(activity);
     	
@@ -65,6 +74,8 @@ public class SceneAndroidGLES1 extends Scene implements GLSurfaceView.Renderer {
 	    	PointerHandler pointer = new PointerHandlerAndroid(canvas);
 	    	
 	    	AudioLib audioLib = new SoundPoolAudioLib(assets);
+
+            vbrGameClock = null;
 	    	
 	    	Engine.initializationComplete(sprites, glUtil, keyboard, pointer, assets, audioLib, rootPath);
     	}
@@ -81,15 +92,45 @@ public class SceneAndroidGLES1 extends Scene implements GLSurfaceView.Renderer {
     	glUtil.setGL(gl);
     	glUtil.step();
 
-		if(state != null) {
-			state.step();
-			state.render();
-		}
-    	
-    	Engine.keyboard().resetPressReleaseState();
-    	Engine.pointer().resetPressReleaseState();
-    	Engine.audioLib().updateFading();
+
+        if(Engine.useVariableFrameRate()) {
+            if(vbrGameClock == null) {
+                step();
+                vbrGameClock = System.currentTimeMillis();
+            }
+            //The time between game ticks in milliseconds
+            int tickMs = 1000/Engine.getDefaultTickRate();
+            //Prevent accumulation of too much lag, in a way that is consistent with constant rate behaviour
+            long minTime = System.currentTimeMillis()-(1000*animator.getUpdateFPSFrames())/Engine.getDefaultTickRate();
+            if(vbrGameClock < minTime)
+                vbrGameClock = minTime;
+
+            long dt = System.currentTimeMillis() - vbrGameClock;
+            while(dt >= tickMs) {
+                dt -= tickMs;
+                vbrGameClock += tickMs;
+                step();
+            }
+        }
+        else
+            step();
+
+        if(state != null) {
+            state.render();
+        }
     }
+
+    private void step() {
+        lastStepTime = System.currentTimeMillis();
+        if(state != null) {
+            state.step();
+        }
+
+        Engine.keyboard().resetPressReleaseState();
+        Engine.pointer().resetPressReleaseState();
+        Engine.audioLib().updateFading();
+    }
+
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
     	if(DEBUG)
@@ -104,4 +145,9 @@ public class SceneAndroidGLES1 extends Scene implements GLSurfaceView.Renderer {
 		canvas.setMinimumWidth(width);
 		canvas.setMinimumHeight(height);
 		}
+
+    @Override
+    public long getLastStepTime() {
+        return lastStepTime;
+    }
 }

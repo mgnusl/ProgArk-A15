@@ -58,14 +58,22 @@ public class MapModel implements Steppable {
 	
 	/**Returns all rows that might be accessible given the indicated minimum and maximum y coordinates in world space.*/
 	public Row[] getAccessibleRows(float minY, float maxY) {
+
 		//Transpose the coordinates down to be in line with the row list
 		minY += Row.ROW_HEIGHT*originIndex;
 		maxY += Row.ROW_HEIGHT*originIndex;
 		
 		int minIndex = Calc.clamp((int)(minY/Row.ROW_HEIGHT), 0, rows.size());
 		int maxIndex = Calc.clamp(1+(int)(maxY/Row.ROW_HEIGHT), 0, rows.size());
-		
-		Row[] r = new Row[maxIndex-minIndex];
+
+        Row[] r;
+        if (maxIndex-minIndex < 0) {
+            r = new Row[0];
+            System.out.println("max: " + maxIndex + ", min: " + minIndex);
+        } else {
+            r = new Row[maxIndex - minIndex];
+        }
+
 		rows.subList(minIndex, maxIndex).toArray(r);
 		return r;
 	}
@@ -80,14 +88,26 @@ public class MapModel implements Steppable {
 	}
 	@Override
 	public void step() {
+        // Get cam position
+        float camY = ballGameModel.getCamera().getCurrentLocation().y();
+        float camHeight = ballGameModel.getCamera().getHeight();
+
 		//Move the edge lines to match the camera y-position
-		leftEdge.getLocation().y(ballGameModel.getCamera().getCurrentLocation().y()+ballGameModel.getCamera().getHeight());
-		rightEdge.getLocation().y(ballGameModel.getCamera().getCurrentLocation().y());
+		leftEdge.getLocation().y(camY + camHeight);
+		rightEdge.getLocation().y(camY);
 		
-		while(ballGameModel.getCamera().getCurrentLocation().y() < getMinimumGeneratedY())
+		while(camY < getMinimumGeneratedY())
 			generator.generateChunk(this, false);
-		while(ballGameModel.getCamera().getCurrentLocation().y()+ballGameModel.getCamera().getHeight() > getMaximumGeneratedY())
+		while(camY + camHeight > getMaximumGeneratedY())
 			generator.generateChunk(this, true);
+
+        for (Row r : getAccessibleRows(camY, camY + camHeight)) {
+            for (Block b : r.getBlocks()) {
+                if (b instanceof Steppable) {
+                    ((Steppable) b).step();
+                }
+            }
+        }
 	}
 	/**Returns the y-position of the upper edge of the uppermost generated row in world space.*/
 	private float getMinimumGeneratedY() {

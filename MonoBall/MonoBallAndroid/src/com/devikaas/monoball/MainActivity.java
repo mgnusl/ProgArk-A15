@@ -1,13 +1,18 @@
 package com.devikaas.monoball;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import owg.engine.Engine;
 import owg.engine.EntryPoint;
 import owg.engine.GameState;
 
-public class MainActivity extends Activity implements EntryPoint {
+public class MainActivity extends Activity implements EntryPoint  {
+    private MainActivity instance;
+
     /**
      * Called when the activity is first created.
      */
@@ -15,22 +20,15 @@ public class MainActivity extends Activity implements EntryPoint {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Engine.initializeEngine(Engine.TargetPlatform.AndroidGLES1, this);
+        instance = this;
 
-        getWindow().getDecorView().setSystemUiVisibility(
-                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_IMMERSIVE);
-
-        System.out.println("onCreate");
+        Engine.initializeEngine(Engine.TargetPlatform.AndroidGLES1, instance);
     }
+
 
     @Override
     public GameState getInitialState() {
-        System.out.println("Initial state");
-        return new MenuGameState();
+        return new SplashState();
     }
+
 }

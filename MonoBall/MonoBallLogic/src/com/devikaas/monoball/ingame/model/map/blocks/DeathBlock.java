@@ -8,7 +8,8 @@ import com.devikaas.monoball.ingame.model.map.SolidLine;
 import com.devikaas.monoball.ingame.model.map.Collidable;
 
 public class DeathBlock extends BasicBlock {
-    public final static char TYPE = 's';
+    public final static char TYPE = 'd';
+    private final static String SPRITE = "block-spikey";
 
 	@Kryo
 	private DeathBlock() {
@@ -21,12 +22,22 @@ public class DeathBlock extends BasicBlock {
 
 	@Override
 	public String getSprite(){
-		return "deathBlock";
+		return SPRITE;
 	}
 
 	@Override
 	public void evaluateSurface(Collidable subject) {
-		evaluateEndpoints(subject);
+		// verify subject is ball
+		if (subject instanceof BallModel) {
+			BallModel ball = (BallModel)subject;
+
+			// Check for collisions
+			for(SolidLine l : lines){
+				if(l.evaluateLine(subject)) {
+					ball.kill();
+				}
+			}
+		}
 	}
 
 	@Override

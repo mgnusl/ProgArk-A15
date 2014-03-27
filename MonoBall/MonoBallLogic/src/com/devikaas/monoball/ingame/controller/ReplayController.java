@@ -49,6 +49,13 @@ public class ReplayController implements Controller{
         String temp = "";
         int tick;
 
+        int maxTick = Integer.parseInt(split[split.length-1].split("!")[0]);
+
+        //Populate arraylist
+        for(int i= 0;i<maxTick;i++){
+            list.add(i,null);
+        }
+
         for(int i = 0; i<split.length;i++){
             temp = split[i].split("!")[0];
             tick = Integer.parseInt(temp);

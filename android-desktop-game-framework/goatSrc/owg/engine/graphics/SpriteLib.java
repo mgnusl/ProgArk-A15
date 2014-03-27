@@ -10,7 +10,10 @@ import owg.engine.util.NamedInputStream;
 
 public class SpriteLib {
     public static final String SPRITE_LIB = "textures";
+	public static final String SPLASH_LIB = "splash";
 	private static SpriteLib instance;
+	private GLUtil<?> glUtil;
+	private AssetProducer assets;
 
 	public static SpriteLib sprites() {
 		return instance;
@@ -20,12 +23,18 @@ public class SpriteLib {
     
 	/**Singleton constructor*/
     public SpriteLib(GLUtil<?> glUtil, AssetProducer assets) {
+		this.glUtil = glUtil;
+		this.assets = assets;
     	assert instance == null;
     	instance = this;
     	
         sprites = new HashMap<String, Sprite2D>();
-        loadDir(glUtil, assets, SPRITE_LIB);
+        loadDir(glUtil, assets, SPLASH_LIB);
     }
+	public void loadAssets(){
+		loadDir(glUtil, assets, SPRITE_LIB);
+	}
+
     /**Loads images from a relative path in the "assets" directory.
      * Note that the textures folder is automatically loaded at initialization.*/
     public void loadDir(GLUtil<?> glUtil, AssetProducer assets, String dirName)

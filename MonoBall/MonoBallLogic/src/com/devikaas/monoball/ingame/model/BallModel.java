@@ -9,7 +9,7 @@ import com.devikaas.monoball.ingame.model.map.Collidable;
 public class BallModel implements SpriteModel, Collidable, Steppable {
 	public static final float FRICTION = 0.25f;
     public static final float AIR_FRICTION = 0.01f;
-    public static final String DEFAULT_SPRITE = "ball";
+    public static final String DEFAULT_SPRITE = "ball-blue";
 
 	private final BallGameModel model;
 	
@@ -135,11 +135,13 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 	// Switches players, effectivly killing the current player
 	public void kill(){
 		//Gets the amount of time player has been alive.
-		float time = (float)model.getPlayerTimeLimit() - (float)model.getPlayerTimeLimit() / (float)model.getPlayerTime() * (float)model.getAlarm().get(0);
+		float time = (float)model.getPlayerTimeLimit() - (float)model.getPlayerTimeLimit() /
+                                                        (float)model.getPlayerTime() *
+                                                        (float)model.getAlarm().get(model.ALARM_PLAYTIME_INDEX);
 
 		//If player has been alive less than 0.5 seconds, he is invulnerable
 		if(time > 0.5)
-			model.switchPlayer();
+            model.killPlayer();
 	}
 
 

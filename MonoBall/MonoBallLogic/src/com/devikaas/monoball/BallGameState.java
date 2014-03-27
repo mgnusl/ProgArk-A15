@@ -33,10 +33,13 @@ public class BallGameState implements GameState {
     Player playerOne;
 	
 	public BallGameState() {
-		Player one = new Player(model, "Arne");
-        Player two = new Player(model, "Paul");
+		Player one = new Player("Player 1");
+        Player two = new Player("Player 2");
+        one.addLives(3);
+        two.addLives(3);
+
 		BallGameModel m = new BallGameModel(one, two);
-        m.setGameRunning(true);
+        //m.setGameRunning(true);
         
         setModel(m);
         kryoSerializer = new Kryo();
@@ -62,16 +65,17 @@ public class BallGameState implements GameState {
 	public void step() {
         // Reset model X-celeration
         model.setX(0);
+
         inputController.step();
 
         model.step();
-        
-        if(Engine.keyboard().isPressed(VirtualKey.VK_F5)) {
-        	savedModel = getModelBytes(); 
+
+        if (Engine.keyboard().isPressed(VirtualKey.VK_F5)) {
+            savedModel = getModelBytes();
         }
-        if(Engine.keyboard().isPressed(VirtualKey.VK_F6)) {
-        	if(savedModel != null)
-        		setModelBytes(savedModel);
+        if (Engine.keyboard().isPressed(VirtualKey.VK_F6)) {
+            if (savedModel != null)
+                setModelBytes(savedModel);
         }
 	}
 	/**Sets the current game model from the given byte array, as returned by {@link #getModelBytes()}*/
@@ -92,6 +96,13 @@ public class BallGameState implements GameState {
 
 	@Override
 	public void render() {
-		view.render();
+		float alpha = 1;
+        if (model.isRunning()) {
+            float tickMs = 1000/Engine.getDefaultTickRate();
+            long currentTime = System.currentTimeMillis();
+            alpha = (currentTime-Engine.scene().getLastStepTime())/tickMs;
+        }
+        view.render(alpha);
+
 	}
 }
