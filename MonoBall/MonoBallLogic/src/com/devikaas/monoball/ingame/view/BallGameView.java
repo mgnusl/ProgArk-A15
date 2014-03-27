@@ -63,9 +63,6 @@ public class BallGameView {
 	public float getVisibleRangeMaxY(float alpha) {
 		return model.getCamera().getInterpolatedLocation(alpha).y()+model.getCamera().getHeight();
 	}
-
-
-    public HUDView getHud() {
-        return hud;
+d;
     }
 }
