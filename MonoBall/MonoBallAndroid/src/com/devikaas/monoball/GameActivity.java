@@ -27,6 +27,6 @@ public class GameActivity extends Activity implements EntryPoint {
 
     @Override
     public GameState getInitialState() {
-        return new MenuGameState();
+        return new SplashState();
     }
 }
