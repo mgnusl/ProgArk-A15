@@ -22,11 +22,14 @@ public class MapView implements Renderable {
 	@Override
 	public void render(float alpha) {
 		Engine.glUtil().setColor(ColorF.WHITE);
+		//Preallocate a sprite view for rendering, to avoid excessive heap allocations
 		SpriteView s = new SpriteView(null);
 		
+		//Get all map rows that are visible from the current view into the game world
 		Row[] rr = model.getAccessibleRows(gameView.getVisibleRangeMinY(alpha), gameView.getVisibleRangeMaxY(alpha));
 		
 		for(Row r : rr) {
+			//Render all blocks in each row, if they have a sprite
 			for(Block b : r.getBlocks()) {
 				if(b instanceof SpriteModel) {
 					s.setModel((SpriteModel)b);
