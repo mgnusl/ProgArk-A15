@@ -20,6 +20,4 @@ public class SpriteView implements Renderable {
 	public void render(float alpha) {
 		Engine.sprites().get(model.getSprite()).render(model.getSubimage(), model.getSpriteLocation(alpha), model.getOrientation(), model.getXScale(), model.getYScale(), model.getAngle());
 	}
-
-
 }
