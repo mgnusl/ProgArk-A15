@@ -33,8 +33,8 @@ public class BallGameState implements GameState {
     Player playerOne;
 	
 	public BallGameState() {
-		Player one = new Player("Arne");
-        Player two = new Player("Paul");
+		Player one = new Player("Player 1");
+        Player two = new Player("Player 2");
         one.addLives(3);
         two.addLives(3);
 
