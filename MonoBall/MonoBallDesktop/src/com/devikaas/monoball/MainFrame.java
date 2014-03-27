@@ -34,6 +34,6 @@ public class MainFrame extends Frame implements EntryPoint{
 
     @Override
     public GameState getInitialState() {
-        return new MenuGameState();
+        return new SplashState();
     }
 }
