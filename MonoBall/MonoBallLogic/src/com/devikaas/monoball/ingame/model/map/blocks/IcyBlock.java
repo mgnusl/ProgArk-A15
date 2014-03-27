@@ -11,7 +11,8 @@ import owg.engine.util.V3F;
 
 public class IcyBlock extends BasicBlock {
     public static final char TYPE = 's';
-    private static final float FRICTION = 0.1f;
+    private static final float FRICTION = 0f;
+    private static final String SPRITE = "block-ice";
 
     @Kryo
     private IcyBlock() {
@@ -25,6 +26,6 @@ public class IcyBlock extends BasicBlock {
 
     @Override
     public String getSprite() {
-        return "block-ice";
+        return SPRITE;
     }
 }

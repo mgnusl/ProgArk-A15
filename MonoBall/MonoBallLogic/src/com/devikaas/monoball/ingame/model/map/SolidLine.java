@@ -11,7 +11,7 @@ public class SolidLine {
 	 * E.g. extrovert polygons should be defined in a counter-clockwise order.*/
 	final boolean allowBackfaceCollisions = false;
 	
-	final float friction;
+	float friction;
 	final float length;
 	
 	final V3F pos, scale;
@@ -119,4 +119,6 @@ public class SolidLine {
 	public V3F getLocation() {
 		return pos;
 	}
+
+    public void setFriction(float friction) {this.friction = friction;}
 }
