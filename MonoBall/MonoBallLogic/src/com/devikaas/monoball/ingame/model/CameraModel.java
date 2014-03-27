@@ -49,20 +49,30 @@ public class CameraModel implements Steppable {
         // Check location of ball
         float ballY = ballGameModel.getBall().getLocation().y();
 
+        float totalBall, totalCam, distance = 0;
         if (ballGameModel.isReversed()) {
-            float totalBall = ballY - MARGIN;
-            float totalCam = location.y();
+            totalBall = ballY - MARGIN;
+            totalCam = location.y();
+
             if (totalBall <= totalCam) {
-                location.add(0, totalBall - totalCam, 0);
+                distance = totalBall - totalCam;
+                location.add(0, distance, 0);
             }
 
         } else {
-            float totalBall = ballY + MARGIN;
-            float totalCam = location.y()+viewHeight;
+            totalBall = ballY + MARGIN;
+            totalCam = location.y()+viewHeight;
+
             if (totalBall >= totalCam) {
-                location.add(0, totalBall - totalCam, 0);
+                distance = totalBall - totalCam;
+                location.add(0, distance, 0);
             }
-        } 
+        }
+
+        if (distance != 0) {
+            int score = (int)Math.abs(distance) / 3;
+            ballGameModel.getCurrentPlayer().addScore(score);
+        }
 	}
 	public V3F getCurrentLocation() {
 		return location;

@@ -1,5 +1,8 @@
 package com.devikaas.monoball.ingame.model;
 
+import com.devikaas.monoball.ingame.model.map.blocks.SpriteSwapBlock;
+import owg.engine.Engine;
+import owg.engine.util.Calc;
 import owg.engine.util.Compass;
 import owg.engine.util.Kryo;
 import owg.engine.util.V3F;
@@ -25,7 +28,11 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 
 	@Kryo
 	public BallModel() {
-		model=null;location=null;previousLocation=null;radius=0;speed=null;
+		model=null;
+        location=null;
+        previousLocation=null;
+        radius=0;
+        speed=null;
 	}
 
 	public BallModel(BallGameModel model, V3F location, float radius) {
@@ -46,7 +53,7 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 	}
 
     public void setSprite(String sprite) {
-        if (!sprite.isEmpty())
+        if (!"".equals(sprite))
             this.sprite = sprite;
     }
 
@@ -67,7 +74,7 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 
 	@Override
 	public float getXScale() {
-		return radius/50f;
+		return radius/64f;
 	}
 
 	@Override
@@ -104,10 +111,10 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 		speed.add(normal, normalForce);
 		speed.accelerate(-FRICTION*referenceFriction*normalForce);
 		
-		/*if(normalForce > 4) {
-			float i = Calc.clamp(0.5f+normalForce/16f, 0f, 1f);
-			// Engine.audioLib().get("clank").play(0.5f+i/2, 0, 1.5f-i/2);
-		}*/
+		if(normalForce > 4) {
+			float i = Calc.clamp(0.5f + normalForce / 16f, 0f, 1f);
+			Engine.audioLib().get("thump").play(0.5f+i/2, 0, 1.5f-i/2);
+		}
 		
 		angleSp = speed.createCross(normal).z()/(radius);
 		
@@ -143,6 +150,14 @@ public class BallModel implements SpriteModel, Collidable, Steppable {
 		if(time > 0.5)
             model.killPlayer();
 	}
+
+    public void subtractScoreForActivePlayer(int score) {
+        model.getCurrentPlayer().subtractLives(score);
+    }
+
+    public void addScoreForActivePlayer(int score) {
+        model.getCurrentPlayer().addLives(score);
+    }
 
 
 }
