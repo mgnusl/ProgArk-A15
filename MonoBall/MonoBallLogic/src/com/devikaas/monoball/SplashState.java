@@ -17,6 +17,7 @@ import static owg.engine.Engine.sprites;
  */
 public class SplashState implements GameState {
 	private Sprite2D splash;
+    private ColorF background = new ColorF(0x387a96, false);
 
 	private float viewLeft;
 	private float viewTop;
@@ -46,7 +47,7 @@ public class SplashState implements GameState {
 
 	@Override
 	public void render() {
-		glUtil().clearScreen(ColorF.BLACK);
+		glUtil().clearScreen(background);
 		MatrixStack projection = glUtil().projectionMatrix();
 		projection.identity();
 		projection.ortho(viewLeft, viewLeft+viewWidth, viewTop+viewHeight, viewTop, -1, 1);
