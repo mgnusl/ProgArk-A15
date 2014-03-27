@@ -44,7 +44,7 @@ public class BasicBlock implements Block, SpriteModel {
 
 	@Override
 	public String getSprite() {
-		return "darkStoneBlock";
+		return "block-basic";
 	}
 
 	@Override

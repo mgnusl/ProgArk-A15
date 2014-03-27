@@ -1,10 +1,6 @@
 package com.devikaas.monoball.ingame.model.map;
 
-import com.devikaas.monoball.ingame.model.map.blocks.BasicBlock;
-import com.devikaas.monoball.ingame.model.map.blocks.DeathBlock;
-import com.devikaas.monoball.ingame.model.map.blocks.FakeBlock;
-import com.devikaas.monoball.ingame.model.map.blocks.SpriteSwapBlock;
-import com.devikaas.monoball.ingame.model.map.blocks.StickyBlock;
+import com.devikaas.monoball.ingame.model.map.blocks.*;
 
 public class BlockFactory {
     public static final int BLOCKS_PER_LINE = 12;
@@ -24,6 +20,8 @@ public class BlockFactory {
                 return new SpriteSwapBlock(r, offset*blockWidth, blockWidth);
             case StickyBlock.TYPE:
                 return new StickyBlock(r, offset*blockWidth, blockWidth);
+            case IcyBlock.TYPE:
+                return new IcyBlock(r, offset*blockWidth, blockWidth);
             default:
                 return null;
 		}
