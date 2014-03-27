@@ -9,14 +9,14 @@ public class CameraModel implements Steppable {
 	private V3F previousLocation;
 	private V3F location;
 	private float verticalSpeed;
-	private float startSpeed = 4f;
+	private float startSpeed = 1f;
 	private float acceleration = 0.003f;
 	private float viewWidth, viewHeight;
 	
 	private ColorFMutable clearColor;
     private final BallGameModel ballGameModel;
 
-    private static final float MARGIN = 200;
+    private static final float MARGIN = 300;
 	
     @Kryo
     private CameraModel() {
