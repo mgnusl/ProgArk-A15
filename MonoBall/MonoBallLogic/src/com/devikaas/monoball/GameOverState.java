@@ -17,8 +17,8 @@ import owg.engine.util.Compass;
 import owg.engine.util.V3F;
 
 public class GameOverState implements GameState {
-    private float viewLeft;
-    private float viewTop;
+    private float viewLeft = 0;
+    private float viewTop = 0;
 
     private float viewWidth;
     private float viewHeight;

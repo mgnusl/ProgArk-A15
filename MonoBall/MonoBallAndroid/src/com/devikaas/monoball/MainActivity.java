@@ -10,7 +10,7 @@ import owg.engine.Engine;
 import owg.engine.EntryPoint;
 import owg.engine.GameState;
 
-public class MainActivity extends Activity  {
+public class MainActivity extends Activity implements EntryPoint  {
     private MainActivity instance;
 
     /**
@@ -22,27 +22,13 @@ public class MainActivity extends Activity  {
 
         instance = this;
 
-        System.out.println("onCreate");
-
-
-        new Handler().postDelayed(new Runnable(){
-            @Override
-            public void run() {
-
-                Intent gameIntent = new Intent(MainActivity.this, GameActivity.class);
-                MainActivity.this.startActivity(gameIntent);
-                MainActivity.this.finish();
-            }
-        }, 1000);
-
-        // Engine.initializeEngine(Engine.TargetPlatform.AndroidGLES1, instance);
+        Engine.initializeEngine(Engine.TargetPlatform.AndroidGLES1, instance);
     }
 
-    /*
+
     @Override
     public GameState getInitialState() {
-
-        return new MenuGameState();
+        return new SplashState();
     }
-    */
+
 }
