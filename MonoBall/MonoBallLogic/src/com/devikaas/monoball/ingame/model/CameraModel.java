@@ -9,6 +9,8 @@ public class CameraModel implements Steppable {
 	private V3F previousLocation;
 	private V3F location;
 	private float verticalSpeed;
+	private float startSpeed = 4f;
+	private float acceleration = 0.003f;
 	private float viewWidth, viewHeight;
 	
 	private ColorFMutable clearColor;
@@ -26,7 +28,7 @@ public class CameraModel implements Steppable {
 		this.previousLocation = location.clone();
 		this.viewWidth = width;
 		this.viewHeight = height;
-		verticalSpeed = 1f;
+		verticalSpeed = startSpeed;
 		clearColor = ColorF.LTGRAY.getMutableCopy();
 		this.ballGameModel = ballGameModel;
 	}
@@ -35,6 +37,11 @@ public class CameraModel implements Steppable {
 	public void step() {
 		previousLocation.set(location);
 
+
+		if(verticalSpeed > 0)
+			verticalSpeed += acceleration;
+		else
+			verticalSpeed -= acceleration;
         location.add(0, verticalSpeed, 0);
 
 
@@ -80,5 +87,10 @@ public class CameraModel implements Steppable {
 		this.verticalSpeed = ySpeed;
 	}
 
-    public void reverse() { verticalSpeed *= -1; }
+    public void reverse() {
+		if(verticalSpeed < 0)
+			verticalSpeed = startSpeed;
+		else
+			verticalSpeed = -startSpeed;
+		/*verticalSpeed *= -1;*/}
 }

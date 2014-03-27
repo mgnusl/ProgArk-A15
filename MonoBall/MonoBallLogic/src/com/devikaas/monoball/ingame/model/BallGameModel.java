@@ -139,7 +139,7 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
 
     @Override
     public void alarm(int index) {
-        switchPlayer();
+        //switchPlayer();
     }
 
 	public int getPlayerTime(){
