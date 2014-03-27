@@ -9,6 +9,7 @@ import com.devikaas.monoball.ingame.model.map.Collidable;
 
 public class DeathBlock extends BasicBlock {
     public final static char TYPE = 'd';
+    private final static String SPRITE = "block-spikey";
 
 	@Kryo
 	private DeathBlock() {
@@ -21,7 +22,7 @@ public class DeathBlock extends BasicBlock {
 
 	@Override
 	public String getSprite(){
-		return "block-spikey";
+		return SPRITE;
 	}
 
 	@Override

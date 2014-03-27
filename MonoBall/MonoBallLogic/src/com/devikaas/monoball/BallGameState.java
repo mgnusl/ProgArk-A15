@@ -65,16 +65,17 @@ public class BallGameState implements GameState {
 	public void step() {
         // Reset model X-celeration
         model.setX(0);
+
         inputController.step();
 
         model.step();
-        
-        if(Engine.keyboard().isPressed(VirtualKey.VK_F5)) {
-        	savedModel = getModelBytes(); 
+
+        if (Engine.keyboard().isPressed(VirtualKey.VK_F5)) {
+            savedModel = getModelBytes();
         }
-        if(Engine.keyboard().isPressed(VirtualKey.VK_F6)) {
-        	if(savedModel != null)
-        		setModelBytes(savedModel);
+        if (Engine.keyboard().isPressed(VirtualKey.VK_F6)) {
+            if (savedModel != null)
+                setModelBytes(savedModel);
         }
 	}
 	/**Sets the current game model from the given byte array, as returned by {@link #getModelBytes()}*/
@@ -95,6 +96,13 @@ public class BallGameState implements GameState {
 
 	@Override
 	public void render() {
-		view.render();
+		float alpha = 1;
+        if (model.isRunning()) {
+            float tickMs = 1000/Engine.getDefaultTickRate();
+            long currentTime = System.currentTimeMillis();
+            alpha = (currentTime-Engine.scene().getLastStepTime())/tickMs;
+        }
+        view.render(alpha);
+
 	}
 }

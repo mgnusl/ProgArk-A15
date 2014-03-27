@@ -91,6 +91,10 @@ public class BasicBlock implements Block, SpriteModel {
 
     public void setFriction(float friction) {
         this.friction = friction;
+
+        for (SolidLine line : lines) {
+            line.setFriction(friction);
+        }
     }
 
 }

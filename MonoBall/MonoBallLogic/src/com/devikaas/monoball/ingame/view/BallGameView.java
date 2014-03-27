@@ -29,10 +29,8 @@ public class BallGameView {
 		hud = new HUDView(model);
 	}
 	/**Renders the entire view.*/
-	public void render() {
-		float tickMs = 1000/Engine.getDefaultTickRate();
-		long currentTime = System.currentTimeMillis();
-		float alpha = (currentTime-Engine.scene().getLastStepTime())/tickMs;
+	public void render(float alpha) {
+
 		camera.render(alpha);
 
 		float camy = model.getCamera().getInterpolatedLocation(alpha).y();
@@ -65,4 +63,9 @@ public class BallGameView {
 	public float getVisibleRangeMaxY(float alpha) {
 		return model.getCamera().getInterpolatedLocation(alpha).y()+model.getCamera().getHeight();
 	}
+
+
+    public HUDView getHud() {
+        return hud;
+    }
 }
