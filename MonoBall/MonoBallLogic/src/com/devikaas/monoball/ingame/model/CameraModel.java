@@ -10,8 +10,8 @@ public class CameraModel implements Steppable {
 	private V3F location;
 	private float verticalSpeed;
 	private float startSpeed = 1f;
-	private float acceleration = 0.003f;
 	private float viewWidth, viewHeight;
+    private int stepCounter = 0;
 	
 	private ColorFMutable clearColor;
     private final BallGameModel ballGameModel;
@@ -36,19 +36,21 @@ public class CameraModel implements Steppable {
 	@Override
 	public void step() {
 		previousLocation.set(location);
+        stepCounter++;
 
-
+        float speedStep = (float)(Math.log(stepCounter)) / 750;
 		if(verticalSpeed > 0)
-			verticalSpeed += acceleration;
+			verticalSpeed += speedStep;
 		else
-			verticalSpeed -= acceleration;
-        location.add(0, verticalSpeed, 0);
+			verticalSpeed -= speedStep;
 
+        location.add(0, verticalSpeed, 0);
 
 
         // Check location of ball
         float ballY = ballGameModel.getBall().getLocation().y();
 
+        // Move camera according to ball movement if it's reaching end of the screen
         float totalBall, totalCam, distance = 0;
         if (ballGameModel.isReversed()) {
             totalBall = ballY - MARGIN;
@@ -69,6 +71,7 @@ public class CameraModel implements Steppable {
             }
         }
 
+        // Avoid points for the ball having a fast descent/ascent
         if (distance != 0) {
             int score = (int)Math.abs(distance) / 3;
             ballGameModel.getCurrentPlayer().addScore(score);
@@ -102,5 +105,8 @@ public class CameraModel implements Steppable {
 			verticalSpeed = startSpeed;
 		else
 			verticalSpeed = -startSpeed;
-		/*verticalSpeed *= -1;*/}
+		/*verticalSpeed *= -1;*/
+
+        stepCounter = 0;
+    }
 }
