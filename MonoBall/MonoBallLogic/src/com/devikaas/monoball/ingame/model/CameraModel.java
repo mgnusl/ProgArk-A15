@@ -38,7 +38,7 @@ public class CameraModel implements Steppable {
 		previousLocation.set(location);
         stepCounter++;
 
-        float speedStep = (float)(Math.log(stepCounter)) / 750;
+        float speedStep = (float)(Math.log(stepCounter)) / 1000;
 		if(verticalSpeed > 0)
 			verticalSpeed += speedStep;
 		else
