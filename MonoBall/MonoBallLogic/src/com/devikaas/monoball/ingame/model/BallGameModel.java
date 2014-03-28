@@ -60,7 +60,7 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
 		
 		mapModel = new MapModel(this, new AssetMapGenerator(seed));
 		collisionHandler = new CollidableList(mapModel);
-		gravity = new V3F(0, 0.8f, 0);
+		gravity = new V3F(0, 1f, 0);
 		ballModel = new BallModel(this, new V3F(MapModel.MAP_X+MapModel.MAP_WIDTH/2, 0, 0), Row.ROW_HEIGHT/2-1);
 		
 		collisionHandler.addCollidable(ballModel);
