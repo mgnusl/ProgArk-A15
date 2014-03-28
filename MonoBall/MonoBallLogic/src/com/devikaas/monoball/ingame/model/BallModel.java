@@ -12,7 +12,7 @@ import com.devikaas.monoball.ingame.model.map.Collidable;
 public class BallModel implements SpriteModel, Collidable, Steppable {
 	public static final float FRICTION = 0.25f;
     public static final float AIR_FRICTION = 0.01f;
-    public static final String DEFAULT_SPRITE = "ball-fb";
+    public static final String DEFAULT_SPRITE = "ball-swe";
 
 	private final BallGameModel model;
 	
