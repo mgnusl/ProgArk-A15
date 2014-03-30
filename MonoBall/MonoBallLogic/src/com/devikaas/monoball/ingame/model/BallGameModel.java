@@ -1,12 +1,14 @@
 package com.devikaas.monoball.ingame.model;
 
 import com.devikaas.monoball.GameOverState;
+
 import owg.engine.Engine;
 import owg.engine.util.Alarm;
 import owg.engine.util.Kryo;
 import owg.engine.util.V3F;
 
 import com.devikaas.monoball.ingame.model.map.CollidableList;
+import com.devikaas.monoball.ingame.model.map.MapGenerator;
 import com.devikaas.monoball.ingame.model.map.MapModel;
 import com.devikaas.monoball.ingame.model.map.Row;
 /**A fully specified instance of the game model.*/
@@ -58,7 +60,14 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
 		final float h = (w*16)/9;
 		cameraModel = new CameraModel(this, new V3F(MapModel.MAP_X, -h/2f, 0), w, h);
 		
-		mapModel = new MapModel(this, new AssetMapGenerator(seed));
+		MapGenerator generator;
+		//generator = new TestGenerator(seed);
+		generator = new AssetMapGenerator(seed);
+		//generator = new FontMapGenerator("misc/asciifont.txt", "bad map is bad ", seed);
+		
+		
+		mapModel = new MapModel(this, generator);
+		
 		collisionHandler = new CollidableList(mapModel);
 		gravity = new V3F(0, 1f, 0);
 		ballModel = new BallModel(this, new V3F(MapModel.MAP_X+MapModel.MAP_WIDTH/2, 0, 0), Row.ROW_HEIGHT/2-1);
