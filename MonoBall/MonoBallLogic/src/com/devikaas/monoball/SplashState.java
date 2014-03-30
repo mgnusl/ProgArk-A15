@@ -23,17 +23,20 @@ public class SplashState implements GameState {
 	private float viewHeight;
 	private boolean rendered = false;
 
+    private int stepsCounter = 0;
+    private final int stepLimit;
+
 	public SplashState(){
-		float screenAspect = (float)scene().getWidth()/scene().getHeight();
-		viewHeight = 320;
-		viewWidth = viewHeight*screenAspect;
+		viewHeight = scene().getHeight();
+		viewWidth = scene().getWidth();
 
 		splash = sprites().get("logo");
+        stepLimit = Engine.getDefaultTickRate();
 	}
 
 	@Override
 	public void step() {
-		if(rendered){
+		if(rendered && (stepsCounter++ >= stepLimit)){
 			sprites().loadAssets();
 			Engine.scene().setState(new MenuGameState());
 		}
@@ -53,12 +56,12 @@ public class SplashState implements GameState {
 
 		glUtil().setColor(ColorF.WHITE);
 
-		float scale = viewWidth * 0.9f / splash.getWidth();
+
 		splash.render(0,
 				new V3F(viewWidth / 2, viewHeight / 2, 0),
 				Compass.CENTER,
-				scale,
-				scale,
+				1,
+				1,
 				0);
 		rendered = true;
 	}

@@ -7,11 +7,12 @@ public class Player implements Steppable {
     private int score = 0;
     private long counter;
     private int lives = 0;
-    /**Delay between point increments, in seconds*/
-    private final static int POINT_DELAY = 4;
-    /**Amount to increase points by, at each {@link #POINT_DELAY} interval*/
-    private final static int POINT_BURST = 2;
 
+    /**Delay between point increments, in seconds*/
+    private final static float POINT_DELAY = 1;
+
+    /**Amount to increase points by, at each {@link #POINT_DELAY} interval*/
+    private final static float POINT_BURST = 1;
 
     private final String name;
     

@@ -17,22 +17,23 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
 	private final BallModel ballModel;
     private Player playerOneModel;
     private Player playerTwoModel;
+    private Player currentPlayer;
+
+    public static final int BONUS_MULITPLIER = 3;
 
 	private final CollidableList collisionHandler;
 
     // World info
 	private final V3F gravity;
-    private final int SEED = 7;
 
     // Gametime variables
     private boolean reversed = false;
     private boolean running = false;
     private boolean timeout = false;
 
-    private boolean currentPlayerOne = true;
 
     // Timing before changing player
-    public final static int PLAYER_TIME_LIMIT = 21;
+    public final static int PLAYER_TIME_LIMIT = 25;
     public final static int TIMEOUT_TIME_LIMIT = 4;
     public final static int ALARM_PLAYTIME_INDEX = 0;
     public final static int ALARM_TIMEOUT_INDEX = 1;
@@ -52,14 +53,14 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
         timeoutTime=0;
     }
 
-	public BallGameModel(Player one, Player two) {
+	public BallGameModel(Player one, Player two, int seed) {
 		final float w = MapModel.MAP_WIDTH;
 		final float h = (w*16)/9;
 		cameraModel = new CameraModel(this, new V3F(MapModel.MAP_X, -h/2f, 0), w, h);
 		
-		mapModel = new MapModel(this, new AssetMapGenerator(SEED));
+		mapModel = new MapModel(this, new AssetMapGenerator(seed));
 		collisionHandler = new CollidableList(mapModel);
-		gravity = new V3F(0, 0.8f, 0);
+		gravity = new V3F(0, 1f, 0);
 		ballModel = new BallModel(this, new V3F(MapModel.MAP_X+MapModel.MAP_WIDTH/2, 0, 0), Row.ROW_HEIGHT/2-1);
 		
 		collisionHandler.addCollidable(ballModel);
@@ -70,6 +71,8 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
         
         playerOneModel = one;
         playerTwoModel = two;
+
+        currentPlayer = playerOneModel;
 
 		running = true;
 
@@ -89,7 +92,7 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
 	}
     public Alarm getAlarm() { return alarm; }
     public Player getCurrentPlayer() {
-        return currentPlayerOne ? playerOneModel : playerTwoModel;
+        return currentPlayer;
     }
 
     public void setX(float x) {
@@ -113,10 +116,7 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
 
             collisionHandler.step();
 
-            if (currentPlayerOne)
-                playerOneModel.step();
-            else
-                playerTwoModel.step();
+            currentPlayer.step();
         }
 
         alarm.step();
@@ -132,10 +132,7 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
     }
 
     public void killPlayer(){
-        if (currentPlayerOne)
-            playerOneModel.subtractLives(1);
-        else
-            playerTwoModel.subtractLives(1);
+        currentPlayer.subtractLives(1);
 
         //Check if game is over
         if (playerOneModel.getLives() <=0 || playerTwoModel.getLives() <=0) {
@@ -146,7 +143,9 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
     }
 
     public void switchPlayer() {
-        currentPlayerOne = !currentPlayerOne;
+        // Switch players
+        currentPlayer = (currentPlayer == playerOneModel ? playerTwoModel : playerOneModel);
+
         alarm.set(ALARM_PLAYTIME_INDEX, playerTime);
 
         reverse();

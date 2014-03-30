@@ -38,7 +38,7 @@ public class BallGameState implements GameState {
         one.addLives(3);
         two.addLives(3);
 
-		BallGameModel m = new BallGameModel(one, two);
+		BallGameModel m = new BallGameModel(one, two, (int)(Math.random() * 1000));
         //m.setGameRunning(true);
         
         setModel(m);

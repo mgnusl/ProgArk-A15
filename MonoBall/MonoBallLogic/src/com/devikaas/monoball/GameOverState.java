@@ -55,10 +55,14 @@ public class GameOverState implements GameState {
 
         sysController = new SystemKeyController();
 
-
         float screenAspect = (float)scene().getWidth()/scene().getHeight();
         viewHeight = 320;
         viewWidth = viewHeight*screenAspect;
+
+        // Reset viewport
+        glUtil().viewport(0, 0, scene().getWidth(), scene().getHeight());
+        glUtil().scissor(0, 0, scene().getWidth(), scene().getHeight());
+        glUtil().setScissorEnabled(false);
 
         //Scales buttons and logo according to width of screen
         imageScale = viewWidth / 2 / sprites().get("play").getWidth();
