@@ -63,8 +63,8 @@ public class GL3Util extends GLDesktopUtil<GL3> {
 		currentColor = ColorF.WHITE.getMutableCopy();
 		try {
 			defaultShaderProgram = loadShaderFromFile(
-					ClassLoader.getSystemClassLoader().getResourceAsStream("shaders/vDefault.glsl"), 
-					ClassLoader.getSystemClassLoader().getResourceAsStream("shaders/fDefault.glsl"));
+					ClassLoader.getSystemClassLoader().getResourceAsStream("shaders/default.vert"), 
+					ClassLoader.getSystemClassLoader().getResourceAsStream("shaders/default.frag"));
 		}
 		catch (IOException e) {
 			throw new RuntimeException("Failed to load default shader... ", e);
