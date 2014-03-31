@@ -5,8 +5,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
- *  Controller for using a replay sequence as inputs
- *
+ *  Controller for using a replay sequence of inputs
  * Created by Stein on 23.03.14.
  */
 public class ReplayController implements Controller{
@@ -14,13 +13,13 @@ public class ReplayController implements Controller{
     ArrayList<String> commands;
     int tickCount = 0;
 
-    public ReplayController(String replay){
+    public ReplayController(InputController i, String replay){
 
-        inputController = InputController.getInstance();
+        inputController = i;
         commands = interpretReplay(replay);
 
     }
-
+    
     @Override
     public void step() {
 
@@ -30,7 +29,7 @@ public class ReplayController implements Controller{
 
         tickCount++;
        }
-
+    /**Execute a single recorded command*/
     private void runCommand(String command){
         String cmd = command.split(":")[0];
         Float arg = Float.parseFloat(command.split(":")[1]);
@@ -42,7 +41,7 @@ public class ReplayController implements Controller{
            e.printStackTrace();
         }
     }
-
+    /**Split a textual replay into a list of commands*/
     private ArrayList<String> interpretReplay( String replay){
         ArrayList<String> list = new ArrayList<String>();
         String[] split = replay.split(";");

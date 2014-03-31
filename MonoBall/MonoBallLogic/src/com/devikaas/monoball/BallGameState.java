@@ -20,47 +20,52 @@ import com.devikaas.monoball.ingame.view.BallGameView;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-
+/**This class specifies the in-game state*/
 public class BallGameState implements GameState {
+	/**The game model*/
 	BallGameModel model;
+	/**The game view*/
 	BallGameView view;
+	/**The game controllers*/
     List<Controller> controllers = new ArrayList<>();
     
+    /**Used to create a serialized clone of the game model*/
     Kryo kryoSerializer;
+    /**If non-null, this contains a serialized clone of an old game model*/
     byte[] savedModel;
 
-    InputController inputController = InputController.getInstance();
-    Player playerOne;
-	
+    /**An interceptor which captures controller input*/
+    InputController inputController;
+    
 	public BallGameState() {
 		Player one = new Player("Player 1");
         Player two = new Player("Player 2");
         one.addLives(3);
         two.addLives(3);
-
-		BallGameModel m = new BallGameModel(one, two, (int)(Math.random() * 1000));
-        //m.setGameRunning(true);
         
+		BallGameModel m = new BallGameModel(one, two, (int)(Math.random() * 1000));
         setModel(m);
+        
         kryoSerializer = new Kryo();
         savedModel = null;
 	}
-	
+	/**Set the current game model. This will (re)create the controllers and the view and bind them to the model.*/
 	public void setModel(BallGameModel m) {
 		model = m;
 		view = new BallGameView(model);
 		
+		inputController = new InputController();
 		inputController.setGameModel(model);
-        inputController.registerController(new TouchController());
+        inputController.registerController(new TouchController(inputController));
         inputController.registerController(new SystemKeyController());
-        inputController.registerController(new KeyboardController());
-        //inputController.registerController(new ReplayController(""));
+        inputController.registerController(new KeyboardController(inputController));
+        //inputController.registerController(inputController, new ReplayController(""));
 	}
-	
+	/**Returns an instance to the current model.*/
 	public BallGameModel getModel() {
 		return model;
 	}
-
+	/**Dispatch a game tick to the model and poll the controllers for input.*/
 	@Override
 	public void step() {
         // Reset model X-celeration
@@ -69,7 +74,8 @@ public class BallGameState implements GameState {
         inputController.step();
 
         model.step();
-
+        
+        //Debugging: use F5/F6 to save/load the game model
         if (Engine.keyboard().isPressed(VirtualKey.VK_F5)) {
             savedModel = getModelBytes();
         }
@@ -93,7 +99,7 @@ public class BallGameState implements GameState {
     	ko.close();
     	return bos.toByteArray();
 	}
-
+	/**Dispatch a render event to the game view*/
 	@Override
 	public void render() {
 		float alpha = 1;

@@ -1,16 +1,14 @@
 package com.devikaas.monoball.ingame.controller;
 
-import com.devikaas.monoball.ingame.model.BallGameModel;
 import owg.engine.Engine;
 import owg.engine.input.VirtualKey;
 
-/**
- * Created by bvx89 on 18/03/14.
- */
+/**Controller implementation for keyboard (arrow key) input*/
 public class KeyboardController implements Controller {
 
-    InputController inputController = InputController.getInstance();
-    public KeyboardController() {
+    InputController inputController;
+    public KeyboardController(InputController i) {
+    	this.inputController = i;
     }
 
     public interface Command extends Runnable {

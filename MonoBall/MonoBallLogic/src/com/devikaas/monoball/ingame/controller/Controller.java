@@ -3,7 +3,8 @@ package com.devikaas.monoball.ingame.controller;
 import com.devikaas.monoball.ingame.model.Steppable;
 
 /**
- * Created by bvx89 on 18/03/14.
+ * Interface for controllers. Controllers should poll for events in the step event.
+ * Commands should be sent to the InputController if they have to do with the gameplay.
  */
 public interface Controller extends Steppable {
 }

@@ -5,9 +5,7 @@ import static owg.engine.Engine.*;
 
 import com.devikaas.monoball.ingame.controller.Controller;
 import com.devikaas.monoball.ingame.controller.SystemKeyController;
-import com.devikaas.monoball.ingame.model.BallGameModel;
 import com.devikaas.monoball.ingame.model.Player;
-import owg.engine.Engine;
 import owg.engine.GameState;
 import owg.engine.graphics.ColorF;
 import owg.engine.graphics.MatrixStack;
@@ -15,11 +13,11 @@ import owg.engine.graphics.Sprite2D;
 import owg.engine.graphics.SpriteFontRenderer;
 import owg.engine.util.Compass;
 import owg.engine.util.V3F;
-
+/**This class specifies the game state after a player has lost/won.*/
 public class GameOverState implements GameState {
+	//The location and size of coordinate space where we render the menu
     private float viewLeft = 0;
     private float viewTop = 0;
-
     private float viewWidth;
     private float viewHeight;
 
@@ -40,7 +38,6 @@ public class GameOverState implements GameState {
     private V3F viewSpacePointer;
 
     private Controller sysController;
-    private BallGameModel model;
     private SpriteFontRenderer font;
     private Player player1;
     private Player player2;

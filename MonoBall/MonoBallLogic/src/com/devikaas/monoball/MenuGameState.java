@@ -12,11 +12,11 @@ import owg.engine.graphics.MatrixStack;
 import owg.engine.graphics.Sprite2D;
 import owg.engine.util.Compass;
 import owg.engine.util.V3F;
-
+/**The main menu state.*/
 public class MenuGameState implements GameState {
+	//The location and size of coordinate space where we render the menu
 	private float viewLeft = 0;
 	private float viewTop = 0;
-
 	private float viewWidth;
 	private float viewHeight;
 

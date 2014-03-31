@@ -4,7 +4,7 @@ import owg.engine.Engine;
 import owg.engine.input.VirtualKey;
 
 /**
- * Created by bvx89 on 18/03/14.
+ * Controller implementation which handles the escape/back button to exit the game
  */
 public class SystemKeyController implements Controller {
     @Override
