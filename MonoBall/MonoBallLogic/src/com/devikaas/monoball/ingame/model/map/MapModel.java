@@ -27,7 +27,11 @@ public class MapModel implements Steppable {
 	
 	@Kryo
 	private MapModel() {
-		ballGameModel=null;generator=null;rows=null;rightEdge=null;leftEdge=null;
+		ballGameModel=null;
+		generator=null;
+		rows=null;
+		rightEdge=null;
+		leftEdge=null;
 	}
 	
 	/**Create a new, empty map model.
@@ -39,11 +43,11 @@ public class MapModel implements Steppable {
 		rows = new ArrayList<Row>();
 		originIndex = 0;
 		
-		leftEdge =  new SolidLine(	new V3F(MAP_X, ballGameModel.getCamera().getHeight(), 0),
-									new V3F(MAP_X, 0, 0), 
+		leftEdge =  new SolidLine(	new V3F(MAP_X, ballGameModel.getCamera().getHeight() + 100, 0),
+									new V3F(MAP_X, -100, 0),
 									1);
-		rightEdge = new SolidLine(	new V3F(MAP_X+MAP_WIDTH, 0, 0), 
-									new V3F(MAP_X+MAP_WIDTH, ballGameModel.getCamera().getHeight(), 0), 
+		rightEdge = new SolidLine(	new V3F(MAP_X+MAP_WIDTH, -100, 0),
+									new V3F(MAP_X+MAP_WIDTH, ballGameModel.getCamera().getHeight() + 100, 0),
 									1);
 	}
 	/**Pushes a row to the top or bottom of the row list. This is called automatically by the row constructor.*/
@@ -93,8 +97,8 @@ public class MapModel implements Steppable {
         float camHeight = ballGameModel.getCamera().getHeight();
 
 		//Move the edge lines to match the camera y-position
-		leftEdge.getLocation().y(camY + camHeight);
-		rightEdge.getLocation().y(camY);
+		leftEdge.getLocation().y(camY + camHeight + 100);
+		rightEdge.getLocation().y(camY - 100);
 		
 		while(camY < getMinimumGeneratedY())
 			generator.generateChunk(this, false);
