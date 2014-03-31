@@ -32,6 +32,7 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
     private boolean reversed = false;
     private boolean running = false;
     private boolean timeout = false;
+    private boolean bonus = false;
 
 
     // Timing before changing player
@@ -135,40 +136,38 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
 		return gravity;
 	}
 
-    public void killPlayer(){
+    public void killPlayer() {
         currentPlayer.subtractLives(1);
+
+        alarm.stop(ALARM_PLAYTIME_INDEX);
 
         // Check if both players are dead
         if (playerOneModel.getLives() == 0 && playerTwoModel.getLives() == 0) {
             Engine.scene().setState(new GameOverState(playerOneModel, playerTwoModel));
 
         // Only current player are dead
-        } else if (currentPlayer.getLives() == 0) {
-            // Changes the current player
-            currentPlayer = (currentPlayer == playerOneModel ? playerTwoModel : playerOneModel);
-
-            reverse();
-
-            timeout = false;
-            running = true;
-
-            // Initiate bonus round if the player lives is above one
-            if (currentPlayer.getLives() > 1) {
-                currentPlayer.startBonusRound();
-
-            } else {
-
-                alarm.set(ALARM_PLAYTIME_INDEX, playerTime);
-            }
-
         } else {
             startTimeout();
         }
     }
 
     public void switchPlayer() {
-        // Switch players
-        currentPlayer = (currentPlayer == playerOneModel ? playerTwoModel : playerOneModel);
+        System.out.println(currentPlayer);
+
+        if (currentPlayer.getLives() == 0) {
+            // Changes the current player
+            currentPlayer = (currentPlayer == playerOneModel ? playerTwoModel : playerOneModel);
+
+            // Initiate bonus round if the player lives is above one
+            if (currentPlayer.getLives() > 1) {
+                bonus = true;
+                currentPlayer.startBonusRound();
+
+            }
+        } else {
+            // Changes the current player
+            currentPlayer = (currentPlayer == playerOneModel ? playerTwoModel : playerOneModel);
+        }
 
         alarm.set(ALARM_PLAYTIME_INDEX, playerTime);
 
@@ -182,8 +181,8 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
     public void alarm(int index) {
         switch (index) {
             case ALARM_PLAYTIME_INDEX:
-                startTimeout();
-                alarm.stop(ALARM_PLAYTIME_INDEX);
+                if (!bonus)
+                    startTimeout();
                 break;
             case ALARM_TIMEOUT_INDEX:
                 switchPlayer();
@@ -208,4 +207,5 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
     public boolean isTimeout() {
         return timeout;
     }
+    public boolean isBonus() { return bonus; }
 }

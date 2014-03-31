@@ -61,5 +61,6 @@ public class Player implements Steppable {
 
     public void startBonusRound() {
         bonus = lives;
+        lives = 1;
     }
 }

@@ -50,9 +50,23 @@ public class HUDView implements Renderable {
             Player p = model.getCurrentPlayer();
             String playerInfo = p.getName() + "\n" + p.getScore();
 
+            String rightOutput;
+            if (!model.isBonus()) {
+                rightOutput = "Time:\n" + secondsLeft;
+            } else {
+                rightOutput = "BONUS";
+            }
+
             if (model.isReversed()) {
-                font.render("Time:\n" + secondsLeft, cam.getWidth(), camLoc.y() + cam.getHeight(), Compass.NORTHWEST, 1, 1, (float) Math.PI);
-                font.render(playerInfo, 0, camLoc.y() + cam.getHeight(), Compass.NORTHEAST, 1, 1, (float) Math.PI);
+                font.render(rightOutput,
+                        cam.getWidth(),
+                        camLoc.y() + cam.getHeight(),
+                        Compass.NORTHWEST, 1, 1, (float) Math.PI);
+
+                font.render(playerInfo, 0,
+                        camLoc.y() + cam.getHeight(),
+                        Compass.NORTHEAST, 1, 1, (float) Math.PI);
+
 
                 //Render hearts representing lives
                 float heartStartY = camLoc.y()+cam.getHeight()-heartTopOffset;
@@ -70,8 +84,9 @@ public class HUDView implements Renderable {
                 }
 
             } else {
-                font.render("Time:\n" + secondsLeft, 0, camLoc.y());
-                font.render(playerInfo, cam.getWidth(), camLoc.y(), Compass.NORTHEAST, 1, 1, 0);
+                font.render(rightOutput, 0, camLoc.y());
+                font.render(playerInfo, cam.getWidth(),
+                        camLoc.y(), Compass.NORTHEAST, 1, 1, 0);
 
                 //Render hearts representing lives
                 float heartStartY =camLoc.y()+heartTopOffset;

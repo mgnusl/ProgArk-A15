@@ -38,13 +38,11 @@ public class CameraModel implements Steppable {
 		previousLocation.set(location);
         stepCounter++;
 
-        float speedStep = (float)(Math.log(stepCounter)) / 1000;
-		if(verticalSpeed > 0)
-			verticalSpeed += speedStep;
-		else
-			verticalSpeed -= speedStep;
+        float speedStep = (float)(Math.log(stepCounter))/2.5f;
 
-        location.add(0, verticalSpeed, 0);
+        System.out.println("speed: " + speedStep);
+
+        location.add(0, verticalSpeed + (verticalSpeed > 0 ? speedStep : -speedStep), 0);
 
 
         // Check location of ball
