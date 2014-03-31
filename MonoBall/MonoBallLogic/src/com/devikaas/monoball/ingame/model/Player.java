@@ -4,6 +4,7 @@ import owg.engine.Engine;
 import owg.engine.util.Kryo;
 
 public class Player implements Steppable {
+    private float bonus = 1;
     private int score = 0;
     private long counter;
     private int lives = 0;
@@ -30,9 +31,11 @@ public class Player implements Steppable {
     	counter++;
         if(counter >= Engine.getDefaultTickRate()*POINT_DELAY) {
             counter = 0;
-            score += POINT_BURST;
+            score += POINT_BURST * bonus;
         }
     }
+    
+    
 
     public void addScore(int score) {
         this.score += score;
@@ -54,5 +57,9 @@ public class Player implements Steppable {
 
     public String getName() {
         return name;
+    }
+
+    public void startBonusRound() {
+        bonus = lives;
     }
 }

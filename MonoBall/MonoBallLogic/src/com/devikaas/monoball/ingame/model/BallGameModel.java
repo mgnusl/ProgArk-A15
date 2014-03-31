@@ -126,17 +126,32 @@ public class BallGameModel implements Alarm.AlarmTriggerable {
 		return gravity;
 	}
 
-    public void setGameRunning(boolean state) {
-        if (!running) switchPlayer();
-        running = state;
-    }
-
     public void killPlayer(){
         currentPlayer.subtractLives(1);
 
-        //Check if game is over
-        if (playerOneModel.getLives() <=0 || playerTwoModel.getLives() <=0) {
-            Engine.scene().setState(new GameOverState(playerOneModel,playerTwoModel));
+        // Check if both players are dead
+        if (playerOneModel.getLives() == 0 && playerTwoModel.getLives() == 0) {
+            Engine.scene().setState(new GameOverState(playerOneModel, playerTwoModel));
+
+        // Only current player are dead
+        } else if (currentPlayer.getLives() == 0) {
+            // Changes the current player
+            currentPlayer = (currentPlayer == playerOneModel ? playerTwoModel : playerOneModel);
+
+            reverse();
+
+            timeout = false;
+            running = true;
+
+            // Initiate bonus round if the player lives is above one
+            if (currentPlayer.getLives() > 1) {
+                currentPlayer.startBonusRound();
+
+            } else {
+
+                alarm.set(ALARM_PLAYTIME_INDEX, playerTime);
+            }
+
         } else {
             startTimeout();
         }
