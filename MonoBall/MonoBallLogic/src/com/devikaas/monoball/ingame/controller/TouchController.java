@@ -1,17 +1,15 @@
 package com.devikaas.monoball.ingame.controller;
 
-import com.devikaas.monoball.ingame.model.BallGameModel;
 import owg.engine.Engine;
-import owg.engine.util.Calc;
-
+/**Controller implementation for pointing device input*/
 public class TouchController implements Controller {
-    InputController inputController = InputController.getInstance();
+    InputController inputController;
     private int stepCounter = 0;
     public boolean prevDirectionLeft = false;
     public boolean prevDirectionRight = false;
 
-    public TouchController() {
-
+    public TouchController(InputController i) {
+    	inputController = i;
     }
 
     @Override
