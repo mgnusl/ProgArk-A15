@@ -19,6 +19,8 @@ public class InputController implements Controller{
     private StringBuilder inputLog = new StringBuilder(MIN_ALLOC);
     BallGameModel ballGameModel;
 
+    private int stepCounter = 0;
+
 
     public InputController(){
 
@@ -33,14 +35,16 @@ public class InputController implements Controller{
         for (Controller c : controllers) {
             c.step();
         }
+        stepCounter++;
     }
 
     public void moveBall(float x){
 
         ballGameModel.setX(x);
+        inputLog.append(stepCounter);
         inputLog.append("!moveBall:");
         inputLog.append(x);
-        inputLog.append(";");
+        inputLog.append(';');
     }
 
     public void registerController(Controller c){
